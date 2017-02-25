@@ -1,0 +1,358 @@
+/********************************** Fim dos Sprites **********************************/
+
+@font-face {
+    font-family: 'raleway';
+    src: url('/fonts/raleway/raleway-bold-webfont.eot');
+    src: url('/fonts/raleway/raleway-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/raleway/raleway-bold-webfont.woff') format('woff'),
+        url('/fonts/raleway/raleway-bold-webfont.ttf') format('truetype'),
+        url('/fonts/raleway/raleway-bold-webfont.svg#ralewaybold') format('svg');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'raleway';
+    src: url('/fonts/raleway/raleway-regular-webfont.eot');
+    src: url('/fonts/raleway/raleway-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/raleway/raleway-regular-webfont.woff') format('woff'),
+        url('/fonts/raleway/raleway-regular-webfont.ttf') format('truetype'),
+        url('/fonts/raleway/raleway-regular-webfont.svg#ralewayregular') format('svg');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'raleway';
+    src: url('/fonts/raleway/raleway-light-webfont.eot');
+    src: url('/fonts/raleway/raleway-light-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/raleway/raleway-light-webfont.woff') format('woff'),
+        url('/fonts/raleway/raleway-light-webfont.ttf') format('truetype'),
+        url('/fonts/raleway/raleway-light-webfont.svg#ralewaylight') format('svg');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'raleway';
+    src: url('/fonts/raleway/raleway-extralight-webfont.eot');
+    src: url('/fonts/raleway/raleway-extralight-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/raleway/raleway-extralight-webfont.woff') format('woff'),
+        url('/fonts/raleway/raleway-extralight-webfont.ttf') format('truetype'),
+        url('/fonts/raleway/raleway-extralight-webfont.svg#ralewayextralight') format('svg');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'montserrat';
+    src: url('/fonts/montserrat/montserrat-bold-webfont.eot');
+    src: url('/fonts/montserrat/montserrat-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/montserrat/montserrat-bold-webfont.woff') format('woff'),
+        url('/fonts/montserrat/montserrat-bold-webfont.ttf') format('truetype'),
+        url('/fonts/montserrat/montserrat-bold-webfont.svg#montserratbold') format('svg');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'montserrat';
+    src: url('/fonts/montserrat/montserrat-regular-webfont.eot');
+    src: url('/fonts/montserrat/montserrat-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/montserrat/montserrat-regular-webfont.woff') format('woff'),
+        url('/fonts/montserrat/montserrat-regular-webfont.ttf') format('truetype'),
+        url('/fonts/montserrat/montserrat-regular-webfont.svg#montserratregular') format('svg');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TeXGyreHeros';
+    src: url('/fonts/texgyreheros/texgyreheros-bold-webfont.eot');
+    src: url('/fonts/texgyreheros/texgyreheros-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/texgyreheros/texgyreheros-bold-webfont.woff') format('woff'),
+        url('/fonts/texgyreheros/texgyreheros-bold-webfont.ttf') format('truetype'),
+        url('/fonts/texgyreheros/texgyreheros-bold-webfont.svg#texgyreherosbold') format('svg');
+    font-weight: 600;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'TeXGyreHeros';
+    src: url('/fonts/texgyreheros/texgyreheros-regular-webfont.eot');
+    src: url('/fonts/texgyreheros/texgyreheros-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/texgyreheros/texgyreheros-regular-webfont.woff') format('woff'),
+        url('/fonts/texgyreheros/texgyreheros-regular-webfont.ttf') format('truetype'),
+        url('/fonts/texgyreheros/texgyreheros-regular-webfont.svg#texgyreherosregular') format('svg');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TeXGyreHeros';
+    src: url('/fonts/texgyreheros/texgyreheros-regular-webfont.eot');
+    src: url('/fonts/texgyreheros/texgyreheros-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/texgyreheros/texgyreheros-regular-webfont.woff') format('woff'),
+        url('/fonts/texgyreheros/texgyreheros-regular-webfont.ttf') format('truetype'),
+        url('/fonts/texgyreheros/texgyreheros-regular-webfont.svg#texgyreherosregular') format('svg');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TeXGyreHeros';
+    src: url('/fonts/texgyreheros/texgyreheroscn-regular-webfont.eot');
+    src: url('/fonts/texgyreheros/texgyreheroscn-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/texgyreheros/texgyreheroscn-regular-webfont.woff') format('woff'),
+        url('/fonts/texgyreheros/texgyreheroscn-regular-webfont.ttf') format('truetype'),
+        url('/fonts/texgyreheros/texgyreheroscn-regular-webfont.svg#texgyreheroscnregular') format('svg');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MyHelveticaNeue';
+    src: local("Helvetica Neue Bold"), local("HelveticaNeueBold"), local("HelveticaNeue-Bold");
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MyHelveticaNeue';
+    src: local("Helvetica Neue Medium"), local("HelveticaNeueMedium"), local("HelveticaNeue-Medium");
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MyHelveticaNeue';
+    src: local("Helvetica Neue"), local("HelveticaNeue"), local("Helvetica Neue Roman"), local("HelveticaNeueRoman"), local("HelveticaNeue-Roman"), local("Helvetica");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MyHelveticaNeue';
+    src: local("Helvetica Neue Light"), local("HelveticaNeueLight"), local("HelveticaNeue-Light");
+    font-weight: 300;
+    font-style: normal;
+}
+
+body {
+    font-family: MyHelveticaNeue, Arial, TeXGyreHeros, sans-serif;
+    font-weight: 300;
+    font-size: 14px;	
+}
+
+.chapeu {
+    font-family: montserrat, sans-serif;
+    font-weight: 600;	
+    font-size: 14px;
+}
+
+.title {
+    font-family: raleway, sans-serif;
+    font-weight: 300;
+    font-size: 28px;	
+}
+
+.title-featured {
+    font-family: raleway, sans-serif;
+    font-weight: 300;
+    font-size: 46px;
+}
+
+.sub-title {
+    font-family: montserrat, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: raleway, sans-serif;
+    font-weight: 300;
+}
+
+h2 {
+    color: #5cc773;
+}
+
+p:first-letter{
+    text-transform: uppercase;
+}
+p {
+    color: #646464;
+}
+
+
+
+a {
+    color: #79cf8a;
+}
+
+a:hover,
+a:focus {
+    color: #009f15;
+}
+
+
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14/05/2014, 08:58:55
+    Author     : batista
+*/
+
+#footer
+{
+    background-color: #E89836;
+    background-image: none;
+    background-repeat: repeat;
+    background-attachment: scroll;
+    background-position: 0% 0%;
+    background-clip: border-box;
+    background-origin: padding-box;
+    background-size: auto auto;
+    color: white;
+    clear: both;
+    margin-top: 50px;
+    float: left;
+    width: 100%;
+}
+
+
+
+
+/* Line 205 */
+a
+{
+    color: #79cf8a;
+}
+
+/* Line 455 */
+.menu-search
+{
+    color: #ffffff;
+    float: right;
+    font-size: 1.3em;
+    padding-top: 15px;
+    padding-right: 12px;
+    padding-bottom: 15px;
+    padding-left: 12px;
+}
+
+
+.menu-search {
+    color: #FFFFFF;
+    float: right;
+    font-size: 1.3em;
+    padding: 15px 12px;
+}
+
+.menu-search:hover {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.menu-busca {
+    border: none!important;	
+}
+
+.menu-busca a {
+    color: #FFFFFF !important;
+    font-size: 1.6em;
+}
+
+
+.input-search {
+    position: absolute;
+    right: 0;
+    top: 7px;
+    display: none;
+}
+
+.stretchLeft{
+    display: inline;
+    animation-name: stretchLeft;
+    -webkit-animation-name: stretchLeft;	
+
+    animation-duration: 1.5s;	
+    -webkit-animation-duration: 1.5s;
+
+    animation-timing-function: ease-out;	
+    -webkit-animation-timing-function: ease-out;	
+
+    transform-origin: 100% 0%;
+    -ms-transform-origin: 100% 0%;
+    -webkit-transform-origin: 100% 0%; 
+}
+
+@keyframes stretchLeft {
+    0% {
+        transform: scaleX(0.3);
+    }
+    40% {
+        transform: scaleX(1.02);
+    }
+    60% {
+        transform: scaleX(0.98);
+    }
+    80% {
+        transform: scaleX(1.01);
+    }
+    100% {
+        transform: scaleX(0.98);
+    }				
+    80% {
+        transform: scaleX(1.01);
+    }
+    100% {
+        transform: scaleX(1);
+    }							
+}
+
+@-webkit-keyframes stretchLeft {
+    0% {
+        -webkit-transform: scaleX(0.3);
+    }
+    40% {
+        -webkit-transform: scaleX(1.02);
+    }
+    60% {
+        -webkit-transform: scaleX(0.98);
+    }
+    80% {
+        -webkit-transform: scaleX(1.01);
+    }
+    100% {
+        -webkit-transform: scaleX(0.98);
+    }				
+    80% {
+        -webkit-transform: scaleX(1.01);
+    }
+    100% {
+        -webkit-transform: scaleX(1);
+    }		
+}
+
+
+/* Line 643 */
+.form-control:focus
+{
+    border-top-color: #06b82c;
+    border-right-color-value: #06b82c;
+    border-bottom-color: #06b82c;
+    border-left-color-value: #06b82c;
+    box-shadow: 0px 1px 1px rgba(6, 184, 44, 0.075) inset, 0px 0px 8px rgba(6, 184, 44, 0.6);
+    outline-width: 0px;
+    outline-style: none;
+}

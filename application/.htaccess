@@ -1,0 +1,19 @@
+# Habilitar o PHP 5.3
+AddType application/x-httpd-php53 .php
+
+RewriteEngine On
+RewriteBase /
+
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-l
+
+RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
+
+#RewriteEngine On
+#Options All -Indexes
+
+#DirectoryIndex index.php
+
+#RewriteRule ^(.*)\   index.php?p=$1 [L]

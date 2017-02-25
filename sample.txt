@@ -1,0 +1,137 @@
+Actually, you can get namespaces to work in conjunction to relative paths in your application models. 
+This modification makes loading models much easier and also allows you to have interfaces...
+
+Add this to the end of your application/config/config.php
+
+spl_autoload_extensions('.php'); // Only Autoload PHP Files
+
+spl_autoload_register(function($classname){
+
+    if( strpos($classname,'\\') !== false ){
+        // Namespaced Classes
+        $classfile = strtolower(str_replace('\\','/',$classname));
+
+        if($classname[0] !== '/'){
+            $classfile = APPPATH.'models/'.$classfile.'.php';
+        }               
+        require($classfile);
+    } else if( strpos($classname,'interface') !== false ){
+        // Interfaces
+        strtolower($classname);
+        require('application/interfaces/'.$classname.'.php');
+    }
+
+});
+
+Example Namespaced Class:
+
+<?php
+// File: application/models/foo/bar.php
+namespace foo;
+
+class Bar extends \CI_Model implements \Awesome_interface {
+
+    public $foobar;
+
+    public function __construct() {
+        return parent::__construct();
+    }
+
+    public function getFoobar() {
+        return $this->foobar;
+    }
+
+    public function setFoobar($val) {
+        $this->foobar = $val;
+    }
+
+}
+
+Example Instantiation of Class in Your Code Somewhere:
+
+IMPORTANT NOTE: DO NOT USE BUILT IN CI_Loader ( Ex: $this->load->model(); )
+
+// This will Autoload Your Namespaced Class
+$example = new foo\Bar();
+
+or alternatively on top of your PHP class (ex: controller, other model), you can do this...
+
+<?php
+...
+use foo\Bar as FooBar;
+
+...
+
+// Then you can just do this
+$example = new FooBar();
+
+Example of Interface:
+
+<?php
+// File: application/interfaces/awesome_interface.php
+interface Awesome_interface {
+
+    public function getFoobar();
+
+}
+
+
+
+$sql = "SELECT * FROM some_table WHERE id = ? AND status = ? AND author = ?";
+$this->db->query($sql, array(3, 'live', 'Rick'));
+
+
+
+
+Handling Errors
+
+$this->db->error();
+
+If you need to get the last error that has occured, the error() method will return an array containing its code and message. Here’s a quick example:
+
+if ( ! $this->db->simple_query('SELECT `example_field` FROM `example_table`'))
+{
+        $error = $this->db->error(); // Has keys 'code' and 'message'
+}
+
+
+
+custom_result_object()
+
+Returns the entire result set as an array of instances of the class requested. The only parameter is the name of the class to instantiate.
+
+Example:
+
+$query = $this->db->query("YOUR QUERY");
+
+$rows = $query->custom_result_object('User');
+
+foreach ($rows as $row)
+{
+        echo $row->id;
+        echo $row->email;
+        echo $row->last_login('Y-m-d');
+}
+
+custom_row_object()
+
+Returns a single row from your query results. The first parameter is the row number of the results. The second parameter is the class name to instantiate.
+
+Example:
+
+$query = $this->db->query("YOUR QUERY");
+
+$row = $query->custom_row_object(0, 'User');
+
+if (isset($row))
+{
+        echo $row->email;   // access attributes
+        echo $row->last_login('Y-m-d');   // access class methods
+}
+
+You can also use the row() method in exactly the same way.
+
+Example:
+
+$row = $query->custom_row_object(0, 'User');
+

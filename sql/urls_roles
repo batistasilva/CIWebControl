@@ -1,0 +1,31 @@
+USE vltsegdb;
+DROP TABLE if exists user_role;
+CREATE TABLE `user_role` (
+  `user_role_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `allow_access` enum('Y','N') NOT NULL,
+  `date_create` timestamp NULL DEFAULT NULL,
+  `date_change` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`user_role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE if exists roles;
+CREATE TABLE `roles` (
+  `role_id` int(11) NOT NULL,
+  `url_id` int(11) NOT NULL,#uma ou varias urls em um role_id
+  `role_name` varchar(255) DEFAULT NULL,
+  `allow_access` enum('Y','N') NOT NULL,
+  `date_create` timestamp NULL DEFAULT NULL,
+  `date_change` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE if exists url_page;
+CREATE TABLE `urls_page` (#urls 
+  `url_id` int(11) NOT NULL,
+  `app_name` varchar(100) NOT NULL, 
+  `page` varchar(255) DEFAULT NULL,
+  `date_create` timestamp NULL DEFAULT NULL,
+  `date_change` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`url_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

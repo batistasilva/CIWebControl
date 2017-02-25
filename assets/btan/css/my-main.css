@@ -1,0 +1,602 @@
+/* GLOBAL STYLES
+   -------------------------------------------------- */
+/* Padding below the footer and lighter body text */
+
+body {
+    color: #5a5a5a;
+    font-family: MyHelveticaNeue, Arial, TeXGyreHeros, sans-serif;
+    font-weight: 300;
+    font-size: 14px;	
+}
+
+textarea {
+    resize:none;
+    overflow:auto;
+}
+
+/* CUSTOMIZE THE NAVBAR
+-------------------------------------------------- */
+
+/* Special class on .container surrounding .navbar, used for positioning it into place. */
+.navbar-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    margin-top: 20px;
+    margin-bottom: -90px; /* Negative margin to pull up carousel. 90px is roughly margins and height of navbar. */
+}
+.navbar-wrapper .navbar {
+
+}
+
+/* Remove border and change up box shadow for more contrast */
+.navbar .navbar-inner {
+    border: 0;
+    -webkit-box-shadow: 0 2px 10px rgba(0,0,0,.25);
+    -moz-box-shadow: 0 2px 10px rgba(0,0,0,.25);
+    box-shadow: 0 2px 10px rgba(0,0,0,.25);
+}
+
+/* Downsize the brand/project name a bit */
+.navbar .brand {
+    padding: 14px 20px 16px; /* Increase vertical padding to match navbar links */
+    font-size: 16px;
+    font-weight: bold;
+    text-shadow: 0 -1px 0 rgba(0,0,0,.5);
+}
+
+/* Navbar links: increase padding for taller navbar */
+.navbar .nav > li > a {
+    padding: 15px 20px;
+}
+
+/* Offset the responsive button for proper vertical alignment */
+.navbar .btn-navbar {
+    margin-top: 10px;
+}
+
+
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+
+/* Carousel base class */
+.carousel {
+    margin-bottom: 60px;
+}
+
+.carousel .container {
+    position: relative;
+    z-index: 9;
+}
+
+.carousel-control {
+    height: 80px;
+    margin-top: 0;
+    font-size: 120px;
+    text-shadow: 0 1px 1px rgba(0,0,0,.4);
+    background-color: transparent;
+    border: 0;
+    z-index: 10;
+}
+
+.carousel .item {
+    height: 500px;
+}
+.carousel img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    height: 500px;
+}
+
+.carousel-caption {
+    background-color: transparent;
+    position: static;
+    max-width: 550px;
+    padding: 0 20px;
+    margin-top: 200px;
+}
+.carousel-caption h1,
+.carousel-caption .lead {
+    margin: 0;
+    line-height: 1.25;
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(0,0,0,.4);
+}
+.carousel-caption .btn {
+    margin-top: 10px;
+}
+
+
+
+/* MARKETING CONTENT
+-------------------------------------------------- */
+
+/* Center align the text within the three columns below the carousel */
+.marketing .span4 {
+    text-align: center;
+}
+.marketing h2 {
+    font-weight: normal;
+}
+.marketing .span4 p {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+/* Featurettes
+------------------------- */
+
+.featurette-divider {
+    margin: 80px 0; /* Space out the Bootstrap <hr> more */
+}
+.featurette {
+    padding-top: 120px; /* Vertically center images part 1: add padding above and below text. */
+    overflow: hidden; /* Vertically center images part 2: clear their floats. */
+}
+.featurette-image {
+    margin-top: -120px; /* Vertically center images part 3: negative margin up the image the same amount of the padding to center it. */
+}
+
+/* Give some space on the sides of the floated elements so text doesn't run right into it. */
+.featurette-image.pull-left {
+    margin-right: 40px;
+}
+.featurette-image.pull-right {
+    margin-left: 40px;
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+    font-size: 50px;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+
+
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+
+@media (max-width: 979px) {
+
+    .container.navbar-wrapper {
+        margin-bottom: 0;
+        width: auto;
+    }
+    .navbar-inner {
+        border-radius: 0;
+        margin: -20px 0;
+    }
+
+    .carousel .item {
+        height: 500px;
+    }
+    .carousel img {
+        width: auto;
+        height: 500px;
+    }
+
+    .featurette {
+        height: auto;
+        padding: 0;
+    }
+    .featurette-image.pull-left,
+    .featurette-image.pull-right {
+        display: block;
+        float: none;
+        max-width: 40%;
+        margin: 0 auto 20px;
+    }
+}
+
+
+@media (max-width: 767px) {
+
+    .navbar-inner {
+        margin: -20px;
+    }
+
+    .carousel {
+        margin-left: -20px;
+        margin-right: -20px;
+    }
+    .carousel .container {
+
+    }
+    .carousel .item {
+        height: 300px;
+    }
+    .carousel img {
+        height: 300px;
+    }
+    .carousel-caption {
+        width: 65%;
+        padding: 0 70px;
+        margin-top: 100px;
+    }
+    .carousel-caption h1 {
+        font-size: 30px;
+    }
+    .carousel-caption .lead,
+    .carousel-caption .btn {
+        font-size: 18px;
+    }
+
+    .marketing .span4 + .span4 {
+        margin-top: 40px;
+    }
+
+    .featurette-heading {
+        font-size: 30px;
+    }
+    .featurette .lead {
+        font-size: 18px;
+        line-height: 1.5;
+    }
+
+}
+
+
+
+
+
+/********************************** Fim dos Sprites **********************************/
+
+@font-face {
+    font-family: 'raleway';
+    src: url('/fonts/raleway/raleway-bold-webfont.eot');
+    src: url('/fonts/raleway/raleway-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/raleway/raleway-bold-webfont.woff') format('woff'),
+        url('/fonts/raleway/raleway-bold-webfont.ttf') format('truetype'),
+        url('/fonts/raleway/raleway-bold-webfont.svg#ralewaybold') format('svg');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'raleway';
+    src: url('/fonts/raleway/raleway-regular-webfont.eot');
+    src: url('/fonts/raleway/raleway-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/raleway/raleway-regular-webfont.woff') format('woff'),
+        url('/fonts/raleway/raleway-regular-webfont.ttf') format('truetype'),
+        url('/fonts/raleway/raleway-regular-webfont.svg#ralewayregular') format('svg');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'raleway';
+    src: url('/fonts/raleway/raleway-light-webfont.eot');
+    src: url('/fonts/raleway/raleway-light-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/raleway/raleway-light-webfont.woff') format('woff'),
+        url('/fonts/raleway/raleway-light-webfont.ttf') format('truetype'),
+        url('/fonts/raleway/raleway-light-webfont.svg#ralewaylight') format('svg');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'raleway';
+    src: url('/fonts/raleway/raleway-extralight-webfont.eot');
+    src: url('/fonts/raleway/raleway-extralight-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/raleway/raleway-extralight-webfont.woff') format('woff'),
+        url('/fonts/raleway/raleway-extralight-webfont.ttf') format('truetype'),
+        url('/fonts/raleway/raleway-extralight-webfont.svg#ralewayextralight') format('svg');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'montserrat';
+    src: url('/fonts/montserrat/montserrat-bold-webfont.eot');
+    src: url('/fonts/montserrat/montserrat-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/montserrat/montserrat-bold-webfont.woff') format('woff'),
+        url('/fonts/montserrat/montserrat-bold-webfont.ttf') format('truetype'),
+        url('/fonts/montserrat/montserrat-bold-webfont.svg#montserratbold') format('svg');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'montserrat';
+    src: url('/fonts/montserrat/montserrat-regular-webfont.eot');
+    src: url('/fonts/montserrat/montserrat-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/montserrat/montserrat-regular-webfont.woff') format('woff'),
+        url('/fonts/montserrat/montserrat-regular-webfont.ttf') format('truetype'),
+        url('/fonts/montserrat/montserrat-regular-webfont.svg#montserratregular') format('svg');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TeXGyreHeros';
+    src: url('/fonts/texgyreheros/texgyreheros-bold-webfont.eot');
+    src: url('/fonts/texgyreheros/texgyreheros-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/texgyreheros/texgyreheros-bold-webfont.woff') format('woff'),
+        url('/fonts/texgyreheros/texgyreheros-bold-webfont.ttf') format('truetype'),
+        url('/fonts/texgyreheros/texgyreheros-bold-webfont.svg#texgyreherosbold') format('svg');
+    font-weight: 600;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'TeXGyreHeros';
+    src: url('/fonts/texgyreheros/texgyreheros-regular-webfont.eot');
+    src: url('/fonts/texgyreheros/texgyreheros-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/texgyreheros/texgyreheros-regular-webfont.woff') format('woff'),
+        url('/fonts/texgyreheros/texgyreheros-regular-webfont.ttf') format('truetype'),
+        url('/fonts/texgyreheros/texgyreheros-regular-webfont.svg#texgyreherosregular') format('svg');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TeXGyreHeros';
+    src: url('/fonts/texgyreheros/texgyreheros-regular-webfont.eot');
+    src: url('/fonts/texgyreheros/texgyreheros-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/texgyreheros/texgyreheros-regular-webfont.woff') format('woff'),
+        url('/fonts/texgyreheros/texgyreheros-regular-webfont.ttf') format('truetype'),
+        url('/fonts/texgyreheros/texgyreheros-regular-webfont.svg#texgyreherosregular') format('svg');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TeXGyreHeros';
+    src: url('/fonts/texgyreheros/texgyreheroscn-regular-webfont.eot');
+    src: url('/fonts/texgyreheros/texgyreheroscn-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/texgyreheros/texgyreheroscn-regular-webfont.woff') format('woff'),
+        url('/fonts/texgyreheros/texgyreheroscn-regular-webfont.ttf') format('truetype'),
+        url('/fonts/texgyreheros/texgyreheroscn-regular-webfont.svg#texgyreheroscnregular') format('svg');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MyHelveticaNeue';
+    src: local("Helvetica Neue Bold"), local("HelveticaNeueBold"), local("HelveticaNeue-Bold");
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MyHelveticaNeue';
+    src: local("Helvetica Neue Medium"), local("HelveticaNeueMedium"), local("HelveticaNeue-Medium");
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MyHelveticaNeue';
+    src: local("Helvetica Neue"), local("HelveticaNeue"), local("Helvetica Neue Roman"), local("HelveticaNeueRoman"), local("HelveticaNeue-Roman"), local("Helvetica");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MyHelveticaNeue';
+    src: local("Helvetica Neue Light"), local("HelveticaNeueLight"), local("HelveticaNeue-Light");
+    font-weight: 300;
+    font-style: normal;
+}
+
+
+
+.chapeu {
+    font-family: montserrat, sans-serif;
+    font-weight: 600;	
+    font-size: 14px;
+}
+
+.title {
+    font-family: raleway, sans-serif;
+    font-weight: 300;
+    font-size: 28px;	
+}
+
+.title-featured {
+    font-family: raleway, sans-serif;
+    font-weight: 300;
+    font-size: 46px;
+}
+
+.sub-title {
+    font-family: montserrat, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: raleway, sans-serif;
+    font-weight: 300;
+}
+
+h2 {
+    color: #3072AB;
+}
+
+p {
+    color: #ffffff;
+}
+
+a {
+    color: #3072AB;
+    font-family: raleway, sans-serif;
+    font-weight: 300;
+    font-size: medium;    
+}
+
+a:hover,
+a:focus {
+    color: #009f15;
+}
+
+
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14/05/2014, 08:58:55
+    Author     : batista
+*/
+
+.navbar-collapse
+{
+    padding-right: 15px;
+    padding-left: 15px;
+    overflow-x: visible;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: transparent;
+    background-color: #0E3B8C;
+}
+
+
+#footer
+{
+    background-color: #0E3B8C;
+    color: white;
+    clear: both;
+    margin-top: 0px;
+    margin-bottom:  0px;
+    float: left;
+    width: 100%;   
+}
+
+
+
+/* Line 455 */
+.menu-search
+{
+    color: #ffffff;
+    float: right;
+    font-size: 1.3em;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+}
+
+
+.menu-search {
+    color: #FFFFFF;
+    float: right;
+    font-size: 1.3em;
+    padding: 5px 5px;
+}
+
+.menu-search:hover {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.menu-busca {
+    border: none!important;	
+}
+
+.menu-busca a {
+    color: #FFFFFF !important;
+    font-size: 1.6em;
+}
+
+
+.input-search {
+    position: absolute;
+    right: 0;
+    top: 7px;
+    display: none;
+}
+
+.stretchLeft{
+    display: inline;
+    animation-name: stretchLeft;
+    -webkit-animation-name: stretchLeft;	
+
+    animation-duration: 1.5s;	
+    -webkit-animation-duration: 1.5s;
+
+    animation-timing-function: ease-out;	
+    -webkit-animation-timing-function: ease-out;	
+
+    transform-origin: 100% 0%;
+    -ms-transform-origin: 100% 0%;
+    -webkit-transform-origin: 100% 0%; 
+}
+
+@keyframes stretchLeft {
+    0% {
+        transform: scaleX(0.3);
+    }
+    40% {
+        transform: scaleX(1.02);
+    }
+    60% {
+        transform: scaleX(0.98);
+    }
+    80% {
+        transform: scaleX(1.01);
+    }
+    100% {
+        transform: scaleX(0.98);
+    }				
+    80% {
+        transform: scaleX(1.01);
+    }
+    100% {
+        transform: scaleX(1);
+    }							
+}
+
+@-webkit-keyframes stretchLeft {
+    0% {
+        -webkit-transform: scaleX(0.3);
+    }
+    40% {
+        -webkit-transform: scaleX(1.02);
+    }
+    60% {
+        -webkit-transform: scaleX(0.98);
+    }
+    80% {
+        -webkit-transform: scaleX(1.01);
+    }
+    100% {
+        -webkit-transform: scaleX(0.98);
+    }				
+    80% {
+        -webkit-transform: scaleX(1.01);
+    }
+    100% {
+        -webkit-transform: scaleX(1);
+    }		
+}
+
+
+/* Line 643 */
+.form-control:focus
+{
+    border-top-color: #6495ED;
+    border-right-color-value: #6495ED;
+    border-bottom-color: #6495ED;
+    border-left-color-value: #6495ED;
+    box-shadow: 0px 1px 1px rgba(6, 184, 44, 0.075) inset, 0px 0px 8px rgba(6, 184, 44, 0.6);
+    outline-width: 0px;
+    outline-style: none;
+}
+
+

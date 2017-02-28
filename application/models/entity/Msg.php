@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+namespace entity;
 /**
  * Description of Msg
  *
@@ -18,15 +18,15 @@ class Msg {
     private $msgWarn;
     private $msgError;
     private $type;
-    private $statusError;  
+    private $status;  
    //
-   function __construct($msg, $msgSuccess, $msgWarn, $msgError, $type, $statusError) {
+   function __construct($msg, $msgSuccess, $msgWarn, $msgError, $type, $status) {
        $this->msg = $msg;
        $this->msgSuccess = $msgSuccess;
        $this->msgWarn = $msgWarn;
        $this->msgError = $msgError;
        $this->type = $type;
-       $this->statusError = $statusError;
+       $this->status = $status;
    }
 
     function getMsgSuccess() {
@@ -82,12 +82,12 @@ class Msg {
     }
 
     /**
-     * Get Statu of erro from system
-     * a boolean True or False
+     * Get Status from system error
+     * how a boolean to True or False
      * @return type
      */
-    public function getStatusError() {
-        return $this->statusError;
+    public function getStatus() {
+        return $this->status;
     }
 
     public function setMsg($msg) {
@@ -100,8 +100,8 @@ class Msg {
         return $this;
     }
 
-    public function setStatusError($statusError) {
-        $this->statusError = $statusError;
+    public function setStatus($status) {
+        $this->status = $status;
         return $this;
     }
 

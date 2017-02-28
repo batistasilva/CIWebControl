@@ -5,153 +5,140 @@
                 <span class="thumbnail muted text-center" style="background-color: #0E3B8C; font-weight: bold; color: #FFFFFF;">
                     <small><strong>Cadastro de Empresa</strong></small>
                 </span>  
-                <?php
-                $this->smsg = new SMsg();
-                $this->smsg = Session::getSession('smsg');
-                ?>
-                <?php if (isset($this->smsg)): ?>
-                    <div class="form-group">
-                        <div class="error col-xs-offset-1 col-xs-10">
-                            <div class="<?php echo $this->smsg->getInfo(); ?>" style="text-align: center;">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                <strong><?php echo $this->smsg->getMsg(); ?></strong>
-                            </div>
-                        </div>
-                    </div>
-                    <?php
-                    $this->smsg->rmSMsg();
-                    //Finaliza a sessão para a mensagem não ficar sendo exibida com reflesh
-                    ?>
-                <?php endif; ?>    
+ 
                 <hr>                
                 <div class="form-group" id="DivErroMsg">
                 </div>
 
                 <div class="row">
+                    <?php
+                    echo form_open('ctrlcpny/cpnyAddSave');
+                    ?>               
                     <div style="margin-left: 30px;">
-                        <form action="<?php echo URL; ?>mngcpny/addSave" method="POST">
-                            <br />
-                            <div class="form-inline">
-                                <div class="form-group" style="width: 600px;">
-                                    <label for="InputRazao">Razão Social:</label>
-                                    <div>
-                                        <input type="hidden" name="nextid" value="<?php echo $this->CpnyID; ?>">
-                                    </div>                                    
-                                    <div>
-                                        <input type="text"  style="width: 545px;" class="form-control text-center" autofocus name="nameraz" id="InputRazao" placeholder="Razão Social" required pattern="[a-zA-Z\u00C0-\u00ff\s]{0,40}">
-                                    </div>
-                                    <label for="InputNomefan">Nome Fantasia:</label>
-                                    <div>
-                                        <input type="text" style="width: 545px;" class="form-control text-center"  name="namefan" id="InputNomefan" placeholder="Nome Fantasia" required pattern="[a-zA-Z\u00C0-\u00ff\s]{0,40}">
-                                    </div>
-                                </div>                       
-                                <div class="form-group"  style="width: 450px;">
-                                    <label for="SelectStatus">Status</label>
-                                    <select name="status" class="form-control text-center"style=" width: 450px;" >
-                                        <option value="1">Ativo</option>
-                                        <option value="0">Inativo</option>
-                                    </select>                                    
-                                    <label for="InputCnpj">CNPJ:</label>
-                                    <div>
-                                        <input type="text" style="width: 450px;"  class="form-control text-center" autofocus name="numcnpj" id="InputCnpj" placeholder="00.000.000/0000-00" onkeyup="maskIt(this, event, '##.###.###/####-##')" required pattern="\d{2}.\d{3}.\d{3}/\d{4}-\d{2}">
-                                    </div>
+                        <br />
+                        <div class="form-inline">
+                            <div class="form-group" style="width: 600px;">
+                                <label for="InputRazao">Razão Social:</label>
+                                <div>
+                                    <input type="hidden" name="nextid" value="<?php echo $cpny_next_id; ?>">
+                                </div>                                    
+                                <div>
+                                    <input type="text"  style="width: 545px;" class="form-control text-center" autofocus name="nameraz" id="InputRazao" placeholder="Razão Social" required pattern="[a-zA-Z\u00C0-\u00ff\s]{0,40}">
+                                </div>
+                                <label for="InputNomefan">Nome Fantasia:</label>
+                                <div>
+                                    <input type="text" style="width: 545px;" class="form-control text-center"  name="namefan" id="InputNomefan" placeholder="Nome Fantasia" required pattern="[a-zA-Z\u00C0-\u00ff\s]{0,40}">
+                                </div>
+                            </div>                       
+                            <div class="form-group"  style="width: 450px;">
+                                <label for="SelectStatus">Status</label>
+                                <select name="status" class="form-control text-center"style=" width: 450px;" >
+                                    <option value="1">Ativo</option>
+                                    <option value="0">Inativo</option>
+                                </select>                                    
+                                <label for="InputCnpj">CNPJ:</label>
+                                <div>
+                                    <input type="text" style="width: 450px;"  class="form-control text-center" autofocus name="numcnpj" id="InputCnpj" placeholder="00.000.000/0000-00" onkeyup="maskIt(this, event, '##.###.###/####-##')" required pattern="\d{2}.\d{3}.\d{3}/\d{4}-\d{2}">
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="form-inline">
-                                <div class="form-group" style="width: 600px; margin-top: 10px; margin-bottom: 10px; border: 0px #b92c28 solid;">
-                                    <div class="form-group" style="width: 290px; border: 0px #b92c28 solid;">
-                                        <label class="control-label" for="InputZipCode">Cep:</label>
-                                        <input type="text" style="width: 250px;" class="form-control text-center" autofocus name="zipcode" id="InputZipCode" placeholder="Cep" onkeyup="maskIt(this, event, '#####-###')" required pattern="[0-9]{5}-[0-9]{3}">
-                                        <input type="hidden" name="zipid" id="AddHiddenZipId">
-                                    </div>
-                                    <div class="form-group" style="width: 250px; border: 0px #b92c28 solid;">
-                                        <button type="button" id="buttonZipCode" style="width: 250px;" class="form-control btn btn-warning">Pesquisar</button>
-                                    </div>    
+                        <div class="form-inline">
+                            <div class="form-group" style="width: 600px; margin-top: 10px; margin-bottom: 10px; border: 0px #b92c28 solid;">
+                                <div class="form-group" style="width: 290px; border: 0px #b92c28 solid;">
+                                    <label class="control-label" for="InputZipCode">Cep:</label>
+                                    <input type="text" style="width: 250px;" class="form-control text-center" autofocus name="zipcode" id="InputZipCode" placeholder="Cep" onkeyup="maskIt(this, event, '#####-###')" required pattern="[0-9]{5}-[0-9]{3}">
+                                    <input type="hidden" name="zipid" id="AddHiddenZipId">
                                 </div>
-                                <div class="form-group"  style="width: 450px;">
-                                    <label for="InputIE">I.E.:</label>
-                                    <div>
-                                        <input type="text" style="width: 450px;" class="form-control text-center" autofocus name="numie" id="InputIE" placeholder="000.000.000.000" onkeyup="maskIt(this, event, '###.###.###.###')" required pattern="\d{3}.\d{3}.\d{3}.\d{3}">
-                                    </div>
+                                <div class="form-group" style="width: 250px; border: 0px #b92c28 solid;">
+                                    <button type="button" id="buttonZipCode" style="width: 250px;" class="form-control btn btn-warning">Pesquisar</button>
+                                </div>    
+                            </div>
+                            <div class="form-group"  style="width: 450px;">
+                                <label for="InputIE">I.E.:</label>
+                                <div>
+                                    <input type="text" style="width: 450px;" class="form-control text-center" autofocus name="numie" id="InputIE" placeholder="000.000.000.000" onkeyup="maskIt(this, event, '###.###.###.###')" required pattern="\d{3}.\d{3}.\d{3}.\d{3}">
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="form-inline">
-                                <div class="form-group" style="width: 600px; border: 0px #b92c28 solid;">
-                                    <div class="form-group" style="width: 440px; border: 0px #b92c28 solid;">
-                                        <label class="control-label" for="InputAddress">Endereço:</label>
-                                        <input type="text" style="width: 440px;" class="form-control text-center" autofocus name="address" id="InputAddress" placeholder="Endereço" required pattern="[a-zA-Z0-9,\u00C0-\u00ff\s]{0,40}">
-                                    </div>
-                                    <div class="form-group" style="width: 100px; border: 0px #b92c28 solid;">
-                                        <label class="control-label" for="InputNumber">Número:</label>
-                                        <input type="text" style="width: 100px;" class="form-control text-center" autofocus name="number" id="InputNumber" placeholder="Número" required pattern="[a-zA-Z0-9,\u00C0-\u00ff\s]{0,15}">
-                                    </div>
+                        <div class="form-inline">
+                            <div class="form-group" style="width: 600px; border: 0px #b92c28 solid;">
+                                <div class="form-group" style="width: 440px; border: 0px #b92c28 solid;">
+                                    <label class="control-label" for="InputAddress">Endereço:</label>
+                                    <input type="text" style="width: 440px;" class="form-control text-center" autofocus name="address" id="InputAddress" placeholder="Endereço" required pattern="[a-zA-Z0-9,\u00C0-\u00ff\s]{0,40}">
                                 </div>
-                                <div class="form-group"  style="width: 450px;">
-                                    <label for="InputDistrict">Bairro:</label>
-                                    <div>
-                                        <input type="text" style="width: 450px;" class="form-control text-center" autofocus name="district" id="InputDistrict" placeholder="Bairro ou Localidade" required pattern="[a-zA-Z.\u00C0-\u00ff\s]{0,30}">
-                                    </div>
-                                </div>   
+                                <div class="form-group" style="width: 100px; border: 0px #b92c28 solid;">
+                                    <label class="control-label" for="InputNumber">Número:</label>
+                                    <input type="text" style="width: 100px;" class="form-control text-center" autofocus name="number" id="InputNumber" placeholder="Número" required pattern="[a-zA-Z0-9,\u00C0-\u00ff\s]{0,15}">
+                                </div>
                             </div>
-                            <div class="form-inline">
-                                <div class="form-group" style="width: 600px; border: 0px #b92c28 solid;">
-                                    <div class="form-group" style="width: 440px; border: 0px #b92c28 solid;">
-                                        <label for="InputCity">Cidade:</label>
-                                        <div>
-                                            <input type="text" style="width: 440px;" class="form-control text-center" autofocus name="city" id="InputCity" placeholder="Cidade" required pattern="[a-zA-Z\u00C0-\u00ff\s]{0,25}">
-                                        </div>
-                                    </div>
-                                    <div class="form-group"  style="width: 100px;">
-                                        <label for="InputState">Estado:</label>
-                                        <div>
-                                            <input type="text" style="width: 100px;" class="form-control text-center" autofocus name="state" id="InputState" placeholder="Estado" required pattern="[a-zA-Z]{0,2}">
-                                        </div>
+                            <div class="form-group"  style="width: 450px;">
+                                <label for="InputDistrict">Bairro:</label>
+                                <div>
+                                    <input type="text" style="width: 450px;" class="form-control text-center" autofocus name="district" id="InputDistrict" placeholder="Bairro ou Localidade" required pattern="[a-zA-Z.\u00C0-\u00ff\s]{0,30}">
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="form-inline">
+                            <div class="form-group" style="width: 600px; border: 0px #b92c28 solid;">
+                                <div class="form-group" style="width: 440px; border: 0px #b92c28 solid;">
+                                    <label for="InputCity">Cidade:</label>
+                                    <div>
+                                        <input type="text" style="width: 440px;" class="form-control text-center" autofocus name="city" id="InputCity" placeholder="Cidade" required pattern="[a-zA-Z\u00C0-\u00ff\s]{0,25}">
                                     </div>
                                 </div>
-                                <div class="form-group" style="width: 450px;">
-                                    <label for="InputReference">Ponto de Referência:</label>
+                                <div class="form-group"  style="width: 100px;">
+                                    <label for="InputState">Estado:</label>
                                     <div>
-                                        <input type="text" style="width: 450px;" class="form-control text-center" autofocus name="reference" id="InputReference" placeholder="Referência..">
+                                        <input type="text" style="width: 100px;" class="form-control text-center" autofocus name="state" id="InputState" placeholder="Estado" required pattern="[a-zA-Z]{0,2}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" style="width: 450px;">
+                                <label for="InputReference">Ponto de Referência:</label>
+                                <div>
+                                    <input type="text" style="width: 450px;" class="form-control text-center" autofocus name="reference" id="InputReference" placeholder="Referência..">
+                                </div> 
+                            </div>
+                        </div>
+
+                        <div class="form-inline">
+                            <div class="form-group"  style="width: 600px;">
+                                <div class="form-group"  style="width: 295px;">
+                                    <label for="InputBusinessPhone">Telefone Comercial:</label>
+                                    <div>
+                                        <input type="tel" style="width: 245px;" class="form-control text-center" autofocus name="business_phone" id="InputBusinessPhone" placeholder="(00)0000-0000" onkeyup="maskIt(this, event, '(##)####-####')" required pattern="\([0-9]{2}\)[0-9]{4}-[0-9]{4}">
+                                    </div>
+                                    <label for="InputMobilPhone">Telefone Celular:</label>
+                                    <div>
+                                        <input type="tel" style="width: 245px;" class="form-control text-center" autofocus name="mobil_phone" id="InputMobilPhone" placeholder="(00)00000-0000" onkeyup="maskIt(this, event, '(##)#####-####')" pattern="\([0-9]{2}\)([0-9\s-]{1})?[0-9]{4}-[0-9]{4}">
                                     </div> 
                                 </div>
+                                <div class="form-group"  style="width: 295px; ">
+                                    <label for="InputNextelPhone">Nextel Número:</label>
+                                    <div>
+                                        <input type="tel" style="width: 245px;" class="form-control text-center" autofocus name="nextel_phone" id="InputNextelPhone" placeholder="(00)0000-0000" onkeyup="maskIt(this, event, '(##)####-####')" pattern="\([0-9]{2}\)[0-9]{4}-[0-9]{4}">
+                                    </div>
+                                    <label for="InputNextelID">Nextel ID:</label>
+                                    <div>
+                                        <input type="text" style="width: 245px;" class="form-control text-center" autofocus name="nextel_id" id="InputNextelID" onkeyup="maskIt(this, event, '##*#####')" pattern="[0-9]{2}*[0-9]{6}">
+                                    </div>
+                                </div>
                             </div>
+                            <div class="form-group"  style="width: 470px;">
+                                <label for="InputEmail">Email:</label>
+                                <div>
+                                    <input type="email" style="width: 450px;" class="form-control text-center" name="email" id="InputEmail1" placeholder="nome@provedora.com.br">
+                                </div>
+                                <label for="InputNote">Observação:</label>
+                                <div>
+                                    <textarea class="form-control left" style="width: 450px;" name="message" id="InputNote"></textarea>                                        
+                                </div> 
+                            </div>
+                        </div>
 
-                            <div class="form-inline">
-                                <div class="form-group"  style="width: 600px;">
-                                    <div class="form-group"  style="width: 295px;">
-                                        <label for="InputBusinessPhone">Telefone Comercial:</label>
-                                        <div>
-                                            <input type="tel" style="width: 245px;" class="form-control text-center" autofocus name="business_phone" id="InputBusinessPhone" placeholder="(00)0000-0000" onkeyup="maskIt(this, event, '(##)####-####')" required pattern="\([0-9]{2}\)[0-9]{4}-[0-9]{4}">
-                                        </div>
-                                        <label for="InputMobilPhone">Telefone Celular:</label>
-                                        <div>
-                                            <input type="tel" style="width: 245px;" class="form-control text-center" autofocus name="mobil_phone" id="InputMobilPhone" placeholder="(00)00000-0000" onkeyup="maskIt(this, event, '(##)#####-####')" pattern="\([0-9]{2}\)([0-9\s-]{1})?[0-9]{4}-[0-9]{4}">
-                                        </div> 
-                                    </div>
-                                    <div class="form-group"  style="width: 295px; ">
-                                        <label for="InputNextelPhone">Nextel Número:</label>
-                                        <div>
-                                            <input type="tel" style="width: 245px;" class="form-control text-center" autofocus name="nextel_phone" id="InputNextelPhone" placeholder="(00)0000-0000" onkeyup="maskIt(this, event, '(##)####-####')" pattern="\([0-9]{2}\)[0-9]{4}-[0-9]{4}">
-                                        </div>
-                                        <label for="InputNextelID">Nextel ID:</label>
-                                        <div>
-                                            <input type="text" style="width: 245px;" class="form-control text-center" autofocus name="nextel_id" id="InputNextelID" onkeyup="maskIt(this, event, '##*#####')" pattern="[0-9]{2}*[0-9]{6}">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group"  style="width: 470px;">
-                                    <label for="InputEmail">Email:</label>
-                                    <div>
-                                        <input type="email" style="width: 450px;" class="form-control text-center" name="email" id="InputEmail1" placeholder="nome@provedora.com.br">
-                                    </div>
-                                    <label for="InputNote">Observação:</label>
-                                    <div>
-                                        <textarea class="form-control left" style="width: 450px;" name="message" id="InputNote"></textarea>                                        
-                                    </div> 
-                                </div>
-                            </div>
+
                     </div> 
                     <div class="form-inline">
                         <div class="form-group" style="width: 1024px; text-align: center; padding-top: 20px; padding-bottom: 20px; border: 0px #b92c28 solid;">
@@ -159,14 +146,13 @@
                             <button type="reset" style="width: 250px;"  class="form-control btn btn-danger">Limpar</button>
                         </div>  
                     </div>
-                    </form>  
-
+                    <?php echo form_close(); ?>  
                 </div>
             </div>
         </div>
         <div class="form-inline">
             <div class="form-group" style="width: 1024px; padding-top: 20px; padding-bottom: 20px; text-align: center; border: 0px #b92c28 solid;">
-                <a class="form-control btn btn-primary" style="width: 250px;" href="<?php echo URL; ?>index">Voltar ao Início</a>
+                <a class="form-control btn btn-primary" style="width: 250px;" href="<?php echo base_url(); ?>main">Voltar ao Início</a>
             </div>  
         </div>
     </div>          
@@ -175,8 +161,11 @@
     $(document).ready(function () {
 
         $("#buttonZipCode").click(function () {
-            $.ajax({url: "<?php echo URL; ?>mngcpny/srchzip?zipcode=" + $("#InputZipCode").val(), success: function (result) {
+            $.ajax({url: "<?php echo base_url(); ?>ctrlcpny/srchzip?zipcode=" + $("#InputZipCode").val(), success: function (result) {
                     var obj = $.parseJSON(result);
+                    
+                    //console.log(obj);
+                    
                     if (obj !== false) {
                         //
                         $("#AddHiddenZipId").val(obj.id);

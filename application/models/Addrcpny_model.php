@@ -59,6 +59,21 @@ class Addrcpny_Model extends CI_Model {
         $this->db->delete($this->table);
     }
     
+    /**
+     * Method to get NextID to use in company database.
+     * @return type
+     */
+    public function get_next_id() {
+        $result_id = $this->db->query('SELECT getNextSeq("company_seq as id");');
+        $last_id = $result_id[0]['id'];
+        //
+       /* print "<pre>";
+        print_r($last_id);
+        print "</pre>";
+        exit();*/
+        return $last_id;
+    }    
+    
     
     /**
      * Method used to get object Company for 
@@ -81,19 +96,7 @@ class Addrcpny_Model extends CI_Model {
         return $cpny;
     }
 
-    /**
-     * Method to get NextID to use in company database.
-     * @return type
-     */
-    public function getNextIDToAdd() {
-        $result = $this->db->getNextID('SELECT getNextSeq("company_seq") as id;');
-        $result = $result[0]['id'];
-        //  print "<pre>";
-        //  print_r($result[0]['id']);
-        //  print "</pre>";
-        //  exit();
-        return $result;
-    }
+
 
     /*
      * Method to add a new Company and

@@ -18,8 +18,8 @@
         <meta property="og:image" content="http://www.ossb.com.br/public/btan/ico/favicon.png">
         <meta property="og:site_name" content="ossb.com.br/webctrl/">
         <meta property="og:description" content="OSSB Solutions Business">
-        <meta content="A OSSB Solutions Business é uma das Lider em Automação e Integração de Sistemas no Brasil. 
-              Somos conhecidos por ter os melhores preços e serviços." name="description"> 
+        <meta content="A OSSB Solutions Business é uma empresa Humilde buscando seu espaço no mercado em Automação e Integração de Sistemas. 
+              Somos conhecidos por termos os melhores preços e serviços." name="description"> 
 
         <!-- Java Script -->
         <script src="<?php echo base_url(); ?>assets/btan/js/jquery-1.11.2.min.js" type="text/javascript"></script>
@@ -30,8 +30,8 @@
         <script src="<?php echo base_url(); ?>assets/btan/js/underscore.min.js"></script>
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="<?php echo base_url(); ?>assets/btan/js/ie10-viewport-bug-workaround.js"></script>
-        <script src="<?php echo base_url(); ?>views/mngstaff/modal/js/jquery.Jcrop.js" type="text/javascript"></script>
-        <link href="<?php echo base_url(); ?>views/mngstaff/modal/css/jquery.Jcrop.css" rel="stylesheet" type="text/css"/>
+        <script src="<?php echo base_url(); ?>application/views/mngstaff/modal/js/jquery.Jcrop.js" type="text/javascript"></script>
+        <link href="<?php echo base_url(); ?>application/views/mngstaff/modal/css/jquery.Jcrop.css" rel="stylesheet" type="text/css"/>
 
         <!-- Le styles -->
         <link href="<?php echo base_url(); ?>assets/btan/css/bootstrap.css" rel="stylesheet" type="text/css"/>
@@ -285,7 +285,7 @@
                             <div class="form-group btn btn-warning btn-acessar-conta" style='position:absolute; top:10px; left:626px;'>
                                 <label>Usuário: </label>
                                 <input type="text" readonly="true" autofocus="false" value="<?php echo $_SESSION['user_ar']['username']; ?>" class="text-center btn-default" style="text-transform: uppercase;">
-                                <a href="<?php echo URL; ?>webctrl/dashboard/logout" class="btn btn-link caps strong btn-acessar-conta strong" style="font-weight: bold;">Sair</a>
+                                <a href="<?php echo base_url(); ?>webctrl/dashboard/logout" class="btn btn-link caps strong btn-acessar-conta strong" style="font-weight: bold;">Sair</a>
                             </div>
                         <?php endif; ?>    
                     </div> 
@@ -315,7 +315,7 @@
                                         </a>
                                         <a class="dropdown-caret dropdown-toggle" data-toggle="dropdown"><b class="caret"></b></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="<?php echo base_url(); ?>ctrlcpny/addcpny" title="Permite Adicionar uma nova Empresa...">
+                                            <li><a href="<?php echo base_url(); ?>ctrlcpny/cpnyAdd" title="Permite Adicionar uma nova Empresa...">
                                                     <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Adicionar...
                                                 </a>
                                             </li>

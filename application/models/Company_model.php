@@ -15,6 +15,7 @@
  * and open the template in the editor.
  */
 use entity\Company as ECompany;
+use entity\Msg     as EMsg;
 
 /**
  * Description of Users
@@ -22,26 +23,57 @@ use entity\Company as ECompany;
  * @author batista
  */
 class Company_Model extends CI_Model {
-
+    private $company_table;
+    private $addr_table;
+    private  $status_error;
+    private $cpny;
+    private $msg;
+    
+    
     function __construct() {
         parent::__construct();
-        $this->table = 'company';
+        $this->company_table = 'company';
+        $this->addr_table = 'companyaddr';
         //
         $this->cpny = new ECompany();
-        //$this->smsg = new SMsg();
-        //$this->msg = new Msg(NULL, NULL, NULL, NULL, NULL, NULL);
+
+        $this->status_error = new ArrayObject();
+        $this->msg = new EMsg(NULL, NULL, NULL, NULL, NULL, NULL);
     }
 
     public function get_list() {
-        $query = $this->db->get($this->table);
+        $query = $this->db->get($this->company_table);
 
         return $query->result();
     }
 
-    public function getCustonCpny($id) {
+    /**
+     * Method to get NextID to use in company database.
+     * @return type
+     */
+    public function get_next_id() {
 
-        //$this->db->where($id_name, $id);
-        //$query = $this->db->get($this->table);
+        $query = $this->db->query('SELECT getNextSeq("company_seq as id");');
+        //    print "<pre>";
+
+        $object = $query->result()[0];
+
+        //   print_r($object);
+
+        $array = get_object_vars($object);
+
+        //    print_r($array);
+        //    print_r($array['getNextSeq("company_seq as id")']);
+
+        $result_id = $array['getNextSeq("company_seq as id")'];
+        //echo $result_id;//[0]['id'];
+        //    print "</pre>";
+        // exit(); 
+
+        return $result_id;
+    }
+
+    public function getCustonCpny($id) {
 
         $sql = "SELECT cp.company_id, cp.cnpj, cp.ie, cp.shortname, 
             cp.longname, cp.bussiness_phone, cp.mobil_phone, 
@@ -49,13 +81,12 @@ class Company_Model extends CI_Model {
             cp.status, cp.note, cp.date_create, cp.date_change, 
             ad.company_id, ad.zipcode, ad.zipid, ad.address, 
             ad.addr_number, ad.district, ad.city, ad.state, ad.reference 
-            FROM $this->table as cp, companyaddr as ad 
+            FROM $this->company_table as cp, companyaddr as ad 
                 WHERE cp.company_id = ad.company_id 
                 AND cp.company_id = ?;";
 
         $result = $this->db->query($sql, $id);
 
-        //$query = $this->db->query("YOUR QUERY");
         $this->cpny = $result->custom_row_object(0, 'entity\Company');
 
         /*  if (isset($this->cpny)) {
@@ -66,7 +97,7 @@ class Company_Model extends CI_Model {
         /*  print "<pre>";
           print_r($this->cpny);
           print "</pre>";
-          exit();*/
+          exit(); */
 
 
         return $this->cpny;
@@ -146,83 +177,77 @@ class Company_Model extends CI_Model {
     }
 
     /**
-     * Method to get NextID to use in company database.
-     * @return type
+     * Method to add a new Company and. 
      */
-    public function getNextIDToAdd() {
-        $result = $this->db->getNextID('SELECT getNextSeq("company_seq") as id;');
-        $result = $result[0]['id'];
-        //  print "<pre>";
-        //  print_r($result[0]['id']);
-        //  print "</pre>";
-        //  exit();
-        return $result;
-    }
+    public function AddCpny($cpny_data) {
 
-    /*
-     * Method to add a new Company and
-     * your address. 
-     */
+        //To return error message and status for for insert().
+        $this->status_error = new ArrayObject();
 
-    public function createNewCpny($cpny) {
-        $date = date_create($cpny->getDate_create());
-        $date_new_create = date_format($date, "Y-m-d H:m:s");
+        print "<pre>";
+        print_r($cpny_data);
+        print "</pre>";
+        exit();
+
         //
-        $result = $this->db->insert('company', array(
-            'company_id' => $cpny->getCompany_id(),
-            'longname' => $cpny->getLongname(),
-            'shortname' => $cpny->getShortname(),
-            'cnpj' => $cpny->getCnpj(),
-            'ie' => $cpny->getIe(),
-            'bussiness_phone' => $cpny->getBussiness_phone(),
-            'mobil_phone' => $cpny->getMobil_phone(),
-            'nextel_phone' => $cpny->getNextel_phone(),
-            'nextelid' => $cpny->getNextelid(),
-            'email' => $cpny->getEmail(),
-            'status' => "1",
-            'note' => $cpny->getNote(),
-            'date_create' => $date_new_create
-        ));
+        $result_cpny = $this->db->insert($this->company_table, $cpny_data);
 
-        $addrcpny = $cpny->getAddr();
-        //print "<pre>";
-        //print_r($obj);
-        //print "</pre>";
-        //exit();
-        /**
-         * If result is free error, enter to
-         * update address.
-         */
-        if (!isset($result)) {
-            /*             * *
-             * Add address to company
-             */
-            $result = $this->db->insert('companyaddr', array(
-                'company_id' => $addrcpny->getCompany_id(),
-                'zipid' => $addrcpny->getZipid(),
-                'zipcode' => $addrcpny->getZipcode(),
-                'address' => $addrcpny->getAddress(),
-                'addr_number' => $addrcpny->getAddr_number(),
-                'district' => $addrcpny->getDistrict(),
-                'city' => $addrcpny->getCity(),
-                'state' => $addrcpny->getState(),
-                'reference' => $addrcpny->getReference()
-            ));
+        $this->status_error->status = $result_cpny;
 
-            if (!isset($result)) {
-                //
-                //not was valided a response for zip code addedyet..                
-                if (intval($addrcpny->getZipid()) == 0) {
-                    //                   print "<pre>";
-                    //                   print_r($cpny);
-                    //                   print "</pre>";
-                    //                   exit();
-                    $this->addZipCode($cpny);
-                }
-            }
+        if (!$result_cpny) {
+            $error = $this->db->error(); // Has keys 'code' and 'message'
+            $this->status_error->error = $error;
+            //
         }
         //
-        return $result;
+        return $this->status_error;
+    }
+
+    /**
+     * Method to add a new Address Company
+     */
+    public function AddAddr($addr_data) {
+
+        //To return error message and status for for insert().
+        $this->status_error = new ArrayObject();
+
+        print "<pre>";
+        print_r($addr_data);
+        print "</pre>";
+        exit();
+
+        /*         * *
+         * Add address to company
+         */
+        $result_addr = $this->db->insert($this->addr_table, $addr_data);
+        $this->status_error->status = $result_addr;
+
+        if (!$result_addr) {
+            $error = $this->db->error(); // Has keys 'code' and 'message'
+            $this->status_error->error = $error;
+        }
+        //
+        return $this->status_error;
+    }
+
+    /*     * *
+     * Method designed to delete company
+     * for id informed.
+     */
+
+    public function DeleteCpny($id) {
+        $this->db->where('company_id', $id);
+        $this->db->delete($this->company_table);
+    }
+
+    /*     * *
+     * Method designed to delete Address Company
+     * for id informed.
+     */
+
+    public function DeleteAddr($id) {
+        $this->db->where('company_id', $id);
+        $this->db->delete($this->addr_table);
     }
 
     /*
@@ -329,6 +354,63 @@ class Company_Model extends CI_Model {
             //
             return $this->msg;
         }
+    }
+
+    /*
+     * Methodo to search zipcode to local database
+     * from the state_sp.
+     */
+
+    public function getZipCode($vzipcode) {
+
+        $this->db->select('id, street, complement, district, city, state');
+        $this->db->from('state_sp');
+        $this->db->where('postalcode =', $vzipcode);
+        $query = $this->db->get();
+
+        if ($query->result()) {
+            $row = $query->result()[0];
+        } else {
+            $row = FALSE;
+        }
+
+        /* print "<pre>";
+          print_r($row);
+          print "</pre>";
+          exit(); */
+        //
+        return $row;
+    }
+
+    /*
+     * Method to add a new cep to state_sp 
+     * when a new zipcode was found in correio.
+     */
+
+    public function addZipCode($postal) {
+        // $postalc = new PostalCode();
+        // $postalc = $postal;
+        // $date = date_create($postal->getDate_create());
+        // $date_new_create = date_format($date, "Y-m-d H:m:s");
+        //print "<pre>";
+        //print_r($obj);
+        //print "</pre>";
+        //exit();
+        /*         * *
+         * Add new address to state_sp
+         */
+        $result = $this->db->insert('state_sp', array(
+            'postalcode' => $postal->getPostalcode(),
+            'street' => $postal->getStreet(),
+            'complement' => $postal->getComplement(),
+            'district' => $postal->getDistrict(),
+            'city' => $postal->getCity(),
+            'state' => $postal->getState(),
+            'country' => $postal->getCountry(),
+            'date_create' => $postal->getDate_create()
+        ));
+        //
+        return $result;
     }
 
 }

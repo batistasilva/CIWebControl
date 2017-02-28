@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+namespace entity;
 /**
  * Description of SMsg
  * Method to set and unset Session 
@@ -16,12 +16,13 @@
 class SMsg {
 
     private $app;
-    private $msg;    
-    private $info;//warm, info, msg, error
-    private $infomsg = array('info' => "alert alert-info alert-dismissable", 
-                             'warn' => "alert alert-warning alert-dismissable", 
-                             'okay' => "alert alert-success alert-dismissable", 
-                             'error' => "alert alert-danger alert-dismissable");
+    private $msg;
+    private $info; //warm, info, msg, error
+    private $infomsg = array('info' => "alert alert-info alert-dismissable",
+        'warn' => "alert alert-warning alert-dismissable",
+        'okay' => "alert alert-success alert-dismissable",
+        'error' => "alert alert-danger alert-dismissable");
+
     function getApp() {
         return $this->app;
     }
@@ -41,41 +42,40 @@ class SMsg {
     function setMsg($msg) {
         $this->msg = $msg;
     }
-    
+
     function setInfo($info) {
         $this->info = $info;
-    }      
-        
-    /* * 
+    }
+
+    /*     * 
      * Here define name of var to write
      * session message, who is made by
      * app name and message name.
      */
+
     function setSMsg() {
         $smsg = new SMsg();
         //
-        $smsg->setApp($this->app);//Set app name
-        $smsg->setMsg($this->msg);//Set app message
-        $this->info = $this->infomsg[$this->getInfo()];//Set class message
+        $smsg->setApp($this->app); //Set app name
+        $smsg->setMsg($this->msg); //Set app message
+        $this->info = $this->infomsg[$this->getInfo()]; //Set class message
         $smsg->setInfo($this->info);
         //print_r($nvar);
-        //
-        Session::init();
-        Session::setSession('smsg', $smsg);
-      //  echo $nvar;
-      //  echo 'Salvo na Sessão ' . Session::get($nvar);
-      //  exit();
+        // Set message
+        //$this->session->set_flashdata('smsg', $smsg);
+        $this->session->set_userdata('smsg', $smsg);
     }
 
-
-    /* * 
+    /*     * 
      * Metho for unset object
      * for session.
      * Name object should be
      * setted.
      */
+
     public function rmSMsg() {
-        unset($_SESSION['smsg']);
+        //unset($_SESSION['smsg']);
+        $this->session->unset_userdata('smsg');
     }
 
 }

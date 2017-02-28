@@ -158,8 +158,7 @@
                                     <button type="submit" style="width: 250px;"  class="form-control btn btn-success">Confirmar</button>
                                     <button type="reset" style="width: 250px;"  class="form-control btn btn-danger">Limpar</button>
                                 </div>  
-                            </div>            
-  
+                            </div>         
                         <?php echo form_close();?>
                     </div>
                 </div>

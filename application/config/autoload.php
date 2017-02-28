@@ -91,7 +91,6 @@ $autoload['drivers'] = array();
 */
 //$autoload['helper'] = array();
 $autoload['helper'] = array('html', 'form', 'url', 'admin_helper');
-
 /*
 | -------------------------------------------------------------------
 |  Auto-load Config files
@@ -133,4 +132,5 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
+//$autoload['model'] = array();
 $autoload['model'] = array('Company_model', 'Addrcpny_model');

@@ -7,10 +7,10 @@ namespace entity;
  *
  * @author batista
  */
-class Company extends \entity\CompanyAddr {
+class Company {
 
 //
-    public $company_id;
+    public $id;
     public $addr;
     public $cnpj;
     public $ie;
@@ -28,16 +28,20 @@ class Company extends \entity\CompanyAddr {
 
     //
 
+    function getId() {
+        return $this->id;
+    }
+
+    function setId($id) {
+        $this->id = $id;
+    }  
+    
     public function getAddr() {
         return $this->addr;
     }
 
     public function setAddr($addr) {
         $this->addr = $addr;
-    }
-
-    public function getCompany_id() {
-        return $this->company_id;
     }
 
     public function getCnpj() {
@@ -84,10 +88,7 @@ class Company extends \entity\CompanyAddr {
         return $this->note;
     }
 
-    public function setCompany_id($company_id) {
-        $this->company_id = $company_id;
-    }
-
+  
     public function setCnpj($cnpj) {
         $this->cnpj = $cnpj;
     }

@@ -2,38 +2,34 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * @param Pages
- */
-//require_once 'models/Msg.php';
-//require_once 'util/Tools.php';
-//require_once 'models/SMsg.php';
-//require_once 'models/CompanyAddr.php';
-//require_once 'models/Company.php';
-//require_once 'models/mngzipcode_model.php';
 
 use entity\Company as ECompany;
 use entity\Tools as ETools;
 use entity\CompanyAddr as ECpnyAddr;
-use entity\SMsg        as ESMsg;
-use entity\Msg         as EMsg;
+use entity\Sessionmsg as ESMsg;
+use entity\Msg as EMsg;
 
 class Ctrlcpny extends CI_Controller {
 
     public $smsg;
     private $msg;
-    private $status_error;
+    public $cpny;
+    public $cpny_temp;
+    public $addr_temp;
+    public $addr;
+    private $tools;
 
     public function __construct() {
         parent::__construct();
         $this->cpny = new ECompany();
+        $this->cpny_temp = new ECompany();
         $this->addr = new ECpnyAddr();
+        $this->addr_temp = new ECpnyAddr();
         $this->tools = new ETools();
-        $this->status_error = new ArrayObject();
-        
+
         //Auth::handleLogin();
         $this->smsg = new ESMsg();
-        $this->msg  = new EMsg(NULL, NULL, NULL, NULL, NULL, NULL);
+        $this->msg = new EMsg(NULL, NULL, NULL, NULL, NULL, NULL);
     }
 
     /**
@@ -54,12 +50,14 @@ class Ctrlcpny extends CI_Controller {
      * Prepare data to form edit...
      */
     public function cpnyAdd() {
-        //Get next id to add
-        $result_id = $this->Company_model->get_next_id(); //getNextID();
-
-        $data['cpny_next_id'] = $result_id;
-        //echo '<br/>Last ID..:' . $result_id;
         //
+        $this->cpny = new ECompany();
+        $this->addr = new ECpnyAddr();
+        //
+        $this->cpny->setAddr($this->addr);
+
+        $data['cpny'] = $this->cpny;
+
         //Load Temaplate
         $this->load->view('header', $data);
         $this->load->view('mngcpny/addcpny', $data);
@@ -71,16 +69,14 @@ class Ctrlcpny extends CI_Controller {
      * Save data from form to database.
      */
     public function cpnyAddSave() {
-        
-         $this->status_error = new ArrayObject();
-        
+
         // Field Rules
-        $this->form_validation->set_rules('nextid', 'RegID', 'trim|required');
+        // $this->form_validation->set_rules('nextid', 'RegID', 'trim|required');
         $this->form_validation->set_rules('nameraz', 'Coporation Name', 'trim|required');
         $this->form_validation->set_rules('namefan', 'Alias Name', 'trim|required');
-        $this->form_validation->set_rules('numcnpj', 'CNPJ/CPF', 'integer|required');
+        $this->form_validation->set_rules('numcnpj', 'CNPJ/CPF', 'trim|required');
         $this->form_validation->set_rules('numie', 'ID/I.E.', 'trim|required');
-        $this->form_validation->set_rules('zipid', 'ZipID', 'integer|required');
+        //$this->form_validation->set_rules('zipid', 'ZipID', 'integer|required');
         $this->form_validation->set_rules('zipcode', 'Zip Code', 'trim|required|min_length[8]');
         $this->form_validation->set_rules('address', 'Address', 'trim|required');
         $this->form_validation->set_rules('number', 'Number', 'integer|required');
@@ -89,101 +85,168 @@ class Ctrlcpny extends CI_Controller {
         $this->form_validation->set_rules('state', 'State', 'trim|required');
         $this->form_validation->set_rules('status', 'Status', 'trim|required');
         $this->form_validation->set_rules('reference', 'Reference', 'trim|required');
-        $this->form_validation->set_rules('business_phone', 'Business Phone', 'integer|required');
-        $this->form_validation->set_rules('mobil_phone', 'Mobil Phone', 'integer|required');
-        $this->form_validation->set_rules('nextel_phone', 'Nextel Phone', 'integer|required');
-        $this->form_validation->set_rules('nextel_id', 'Nextel ID', 'trim|required');
+        $this->form_validation->set_rules('business_phone', 'Business Phone', 'trim|required');
+        //$this->form_validation->set_rules('mobil_phone', 'Mobil Phone', 'integer|required');
+        //$this->form_validation->set_rules('nextel_phone', 'Nextel Phone', 'integer|required');
+        //$this->form_validation->set_rules('nextel_id', 'Nextel ID', 'trim|required');
         $this->form_validation->set_rules('email', 'E-mail', 'trim|required');
         $this->form_validation->set_rules('message', 'Message', 'trim|required');
 
+
+        $this->cpny = new ECompany();
+        $this->cpny_temp = new ECompany();
+        
+        $this->tools = new ETools();
+
+        //
+        $this->cpny->setLongname($this->input->post('nameraz'));
+        $this->cpny->setShortname($this->input->post('namefan'));
+        $this->cpny->setCnpj($this->input->post('numcnpj'));
+        $this->cpny->setIe($this->input->post('numie'));
+        $this->cpny->setBussiness_phone($this->input->post('business_phone'));
+        $this->cpny->setMobil_phone($this->input->post('mobil_phone'));
+        $this->cpny->setNextel_phone($this->input->post('nextel_phone'));
+        $this->cpny->setNextelid($this->input->post('nextel_id'));
+        $this->cpny->setEmail($this->input->post('email'));
+        $this->cpny->setStatus($this->input->post('status'));
+        $this->cpny->setNote($this->input->post('message'));
+        //
+        $this->cpny_temp->setLongname($this->input->post('nameraz'));
+        $this->cpny_temp->setShortname($this->input->post('namefan'));
+        $this->cpny_temp->setCnpj($this->input->post('numcnpj'));
+        $this->cpny_temp->setIe($this->input->post('numie'));
+        $this->cpny_temp->setBussiness_phone($this->input->post('business_phone'));
+        $this->cpny_temp->setMobil_phone($this->input->post('mobil_phone'));
+        $this->cpny_temp->setNextel_phone($this->input->post('nextel_phone'));
+        $this->cpny_temp->setNextelid($this->input->post('nextel_id'));
+        $this->cpny_temp->setEmail($this->input->post('email'));
+        $this->cpny_temp->setStatus($this->input->post('status'));
+        $this->cpny_temp->setNote($this->input->post('message'));        
+        //
+        $this->addr = new ECpnyAddr();     
+        $this->addr_temp = new ECpnyAddr();
+        //
+        $this->addr->setZipid($this->input->post('zipid'));
+        $this->addr->setZipcode($this->input->post('zipcode'));
+        $this->addr->setAddress($this->input->post('address'));
+        $this->addr->setAddr_number($this->input->post('number'));
+        $this->addr->setDistrict($this->input->post('district'));
+        $this->addr->setCity($this->input->post('city'));
+        $this->addr->setState($this->input->post('state'));
+        $this->addr->setReference($this->input->post('reference'));
+        //
+        $this->addr_temp->setZipid($this->input->post('zipid'));
+        $this->addr_temp->setZipcode($this->input->post('zipcode'));
+        $this->addr_temp->setAddress($this->input->post('address'));
+        $this->addr_temp->setAddr_number($this->input->post('number'));
+        $this->addr_temp->setDistrict($this->input->post('district'));
+        $this->addr_temp->setCity($this->input->post('city'));
+        $this->addr_temp->setState($this->input->post('state'));
+        $this->addr_temp->setReference($this->input->post('reference'));
+        //        
+        
+        $this->cpny->setAddr($this->addr);
+        $this->cpny_temp->setAddr($this->addr_temp);
+
         //
         if ($this->form_validation->run() == FALSE) {
-            $this->load->view('header');
-            $this->load->view('mngcpny/addcpny');
-            $this->load->view('footer');
+            //
+
+            $data['cpny'] = $this->cpny;
+
+            //Load Temaplate
+            $this->load->view('header', $data);
+            $this->load->view('mngcpny/addcpny', $data);
+            $this->load->view('footer', $data);
+            // 
+            // exit();
         } else {
 
-            // $datetoday = date_create(date('Y/m/d H:i'));
-            // $date_today = date_format($datetoday, "Y-m-d H:i");
+            //Get next id to add
+            $result_id = $this->Company_model->get_next_id(); //getNextID();
+            //
+            $str_cnpj = $this->tools->cleanIntegerToDb($this->input->post('numcnpj'));
+            $this->cpny->setCnpj($str_cnpj);
+            //
+            $str_ie = $this->tools->cleanIntegerToDb($this->input->post('numie'));
+            $this->cpny->setIe($str_ie);
+            //
+            $bphone = $this->tools->cleanInputPhone($this->input->post('business_phone'));
+            $this->cpny->setBussiness_phone($bphone);
+            //
+            $mphone = $this->tools->cleanInputPhone($this->input->post('mobil_phone'));
+            $this->cpny->setMobil_phone($mphone);
+            //
+            $nphone = $this->tools->cleanInputPhone($this->input->post('nextel_phone'));
+            $this->cpny->setNextel_phone($nphone);
+            //
+            $nid = $this->tools->cleanInputPhone($this->input->post('nextel_id'));
+            $this->cpny->setNextelid($nid);
+
+            $this->cpny->setId($result_id);
+            $this->addr->setCompany_id($result_id);
+
 
             $date = date_create(date('Y/m/d H:i'));
             $date_new_create = date_format($date, "Y-m-d H:m:s");
 
-            // Company data
-            $cpny_data = array(
-                'company_id' => $this->input->post('nextid'),
-                'cnpj' => $this->input->post('numcnpj'),
-                'ie' => $this->input->post('numie'),
-                'longname' => $this->input->post('nameraz'),
-                'shortname' => $this->input->post('namefan'),
-                'bussiness_phone' => $this->input->post('business_phone'),
-                'mobil_phone' => $this->input->post('mobil_phone'),
-                'nextel_phone' => $this->input->post('nextel_phone'),
-                'nextelid' => $this->input->post('nextel_id'),
-                'email' => $this->input->post('email'),
-                'status' => $this->input->post('status'),
-                'note' => $this->input->post('message'),
-                'date_create' => $date_new_create,
-            );
-
-            // Address data
-            $addr_data = array(
-                'company_id' => $this->input->post('nextid'),
-                'zipid' => $this->input->post('zipid'),
-                'zipcode' => $this->input->post('zipcode'),
-                'address' => $this->input->post('address'),
-                'addr_number' => $this->input->post('number'),
-                'district' => $this->input->post('district'),
-                'city' => $this->input->post('city'),
-                'state' => $this->input->post('state'),
-                'reference' => $this->input->post('reference')
-            );
+            $this->cpny->setDate_create($date_new_create);
 
             /**
              * Here!, Call the first method to add company.
              */
-            $this->status_error = $this->Company_model->AddCpny($cpny_data);
+            $this->msg = $this->Company_model->AddCpny($this->cpny);
+            // $this->msg = $this->Addrcpny_model->addAddress($addr_data);
 
-            if ($this->status_error->status == TRUE) {
+            if ($this->msg->getStatus() == TRUE) {
                 //
-                //Reinitializing ArrayObject
-                $this->status_error = new ArrayObject();
                 //
-                $this->status_error->status = $this->Company_model->AddAddr($addr_data);
+                $this->msg = $this->Addrcpny_model->addAddress($this->addr);
+
                 //
-                if ($this->status_error->status == FALSE) {
+                if ($this->msg->getStatus() == FALSE) {
                     //
-                    $this->Company_model->DeleteCpny($this->input->post('nextid'));
-                    $this->Company_model->DeleteAddr($this->input->post('nextid'));
+                    $this->Company_model->CleanCpny($this->cpny->getId());
+                    $this->Addrcpny_model->CleanAddr($this->cpny->getId());
                     //
                 }
             }
-        }
+                                  
+            /*    print "<pre>";
+              print_r($this->msg);
+              print "</pre>";
+              exit(); */
+            // $this->smsg = new ESMsg();
+            //
+            if ($this->msg->getStatus() !== TRUE) {
+                //           
+                $this->smsg->setMsg($this->msg->getMsgError());
+                //Sessionmsg_model
+                $this->Sessionmsg_model->wtFSMsg($this->smsg);
+                //
+                $data['cpny'] = $this->cpny_temp;
+                
+                //Load Temaplate
+                $this->load->view('header', $data);
+                $this->load->view('mngcpny/addcpny', $data);
+                $this->load->view('footer', $data);
 
-        //
-        if ($this->status_error->status !== TRUE) {
-            //
-            
-            $this->smsg->setApp('mngcpny');
-            $this->smsg->setMsg("AddCpny(): " . $this->status_error->error);
-            $this->smsg->setInfo('error');
-            //
-            $this->smsg->setSMsg();
-            //
-            $this->load->view('header');
-            $this->load->view('mngcpny/addcpny');
-            $this->load->view('footer');
-        } else {
-            //
-            $this->smsg->setApp('mngcpny');
-            $this->smsg->setMsg("Empresa Cadastrada com Sucesso!");
-            $this->smsg->setInfo('okay');
-            //
-            $this->smsg->setSMsg();
-            //
-            $this->load->view('header');
-            $this->load->view('mngcpny/addcpny');
-            $this->load->view('footer');
+            } else {
+                $this->cpny = new ECompany();
+                $this->addr = new ECpnyAddr();
+                $this->cpny->setAddr($this->addr);
+                //
+                $this->smsg->setMsg($this->msg->getMsgSuccess());
+                //
+                $this->Sessionmsg_model->wtFSMsg($this->smsg);
+                //
+                $data['cpny'] = $this->cpny;
+
+                //Load Temaplate
+                $this->load->view('header', $data);
+                $this->load->view('mngcpny/addcpny', $data);
+                $this->load->view('footer', $data);
+            }
         }
     }
 
@@ -287,16 +350,16 @@ class Ctrlcpny extends CI_Controller {
         $vnote = $tools->clean_input($_POST['message']);
         $vstatus = $tools->clean_input($_POST['status']);
 
+        $this->smsg = new ESMsg();
+
         if (empty($vstatus) || empty($vstate) || empty($vnamefan) || empty($vzipcode) || empty($vaddress) || empty($vcity) || empty($vdistrict) || empty($vstate) ||
                 empty($vbusiness_phone)) {
             //
             $createCompanyErro = "Erro: Todos os campos são de Preenchimento Obrigatório!!";
 
-            $this->smsg->setApp('mngcpny');
             $this->smsg->setMsg($createCompanyErro);
-            $this->smsg->setInfo('error');
             //
-            $this->smsg->setSMsg();
+            $this->Sessionmsg_model->wtFSMsg($this->smsg);
 
             header('location: ' . URL . 'mngcpny/index');
             exit;
@@ -332,24 +395,21 @@ class Ctrlcpny extends CI_Controller {
          * Here!, Call the first method to add company.
          */
         $result = $this->model->updateCpny($cpny);
+        $this->smsg = new ESMsg();
         //
         if (isset($result)) {
             //
-            $this->smsg->setApp('mngcpny');
             $this->smsg->setMsg("updateCpny(): " . $result);
-            $this->smsg->setInfo('error');
             //
-            $this->smsg->setSMsg();
+            $this->Sessionmsg_model->wtFSMsg($this->smsg);
             //
             header('location: ' . URL . 'mngcpny/editcpny');
             exit();
         } else {
             //
-            $this->smsg->setApp('mngcpny');
             $this->smsg->setMsg("Empresa Alterada com Sucesso!");
-            $this->smsg->setInfo('okay');
             //
-            $this->smsg->setSMsg();
+            $this->Sessionmsg_model->wtFSMsg($this->smsg);
             //
             header('location: ' . URL . 'mngcpny/index');
             exit();
@@ -364,25 +424,21 @@ class Ctrlcpny extends CI_Controller {
     public function cpnyDel($cpny_id) {
         //
         $msg = $this->model->deleteCpny($cpny_id);
-
+        $this->smsg = new ESMsg();
         //
         if ($msg->getStatusError() == '1') {
             //
-            $this->smsg->setApp('mngcpny');
             $this->smsg->setMsg("deleteCpny(): " . $msg->getMsg());
-            $this->smsg->setInfo('error');
             //
-            $this->smsg->setSMsg();
+            $this->Sessionmsg_model->wtFSMsg($this->smsg);
             //
             header('location: ' . URL . 'mngcpny/index');
             exit();
         } else {
             //
-            $this->smsg->setApp('mngcpny');
             $this->smsg->setMsg("Empresa Excluida com Sucesso!");
-            $this->smsg->setInfo('okay');
             //
-            $this->smsg->setSMsg();
+            $this->Sessionmsg_model->wtFSMsg($this->smsg);
             //            
             header('location: ' . URL . 'mngcpny/index');
             exit();

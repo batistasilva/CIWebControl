@@ -13,54 +13,25 @@ namespace entity;
  */
 class Msg {
 
-    private $msg;
-    private $msgSuccess;
-    private $msgWarn;
-    private $msgError;
-    private $type;
-    private $status;  
+    public $msg;
+    public $msgSuccess;
+    public $msgWarn;
+    public $msgError;
+    public $type;
+    public $status;  
    //
-   function __construct($msg, $msgSuccess, $msgWarn, $msgError, $type, $status) {
-       $this->msg = $msg;
-       $this->msgSuccess = $msgSuccess;
-       $this->msgWarn = $msgWarn;
-       $this->msgError = $msgError;
-       $this->type = $type;
-       $this->status = $status;
-   }
 
-    function getMsgSuccess() {
-        $this->msgSuccess = "<div class='alert alert-block alert-success fade in'>"
-                    . "<button type='button' class='close' data-dismiss='alert'>×</button>"
-                    . "<h4 class='alert-heading'>.$this->msg.</h4></div>";
-        return $this->msgSuccess;
-    }
-
-    function getMsgWarn() {
-        $this->msgWarn = "<div class='alert alert-block alert-warning fade in'>"
-                    . "<button type='button' class='close' data-dismiss='alert'>×</button>"
-                    . "<h4 class='alert-heading'>.$this->msg.</h4></div>";        
-        return $this->msgWarn;
-    }
-
-    function getMsgError() {
-         $this->msgError = "<div class='alert alert-block alert-danger fade in'>"
-                    . "<button type='button' class='close' data-dismiss='alert'>×</button>"
-                    . "<h4 class='alert-heading'>.$this->msg.</h4></div>";       
-        return $this->msgError;
-    }
-
-    function setMsgSuccess($msgSuccess) {
+    public function setMsgSuccess($msgSuccess) {
         $this->msgSuccess = $msgSuccess;
         return $this;
     }
 
-    function setMsgWarn($msgWarn) {
+    public function setMsgWarn($msgWarn) {
         $this->msgWarn = $msgWarn;
         return $this;
     }
 
-    function setMsgError($msgError) {
+    public function setMsgError($msgError) {
         $this->msgError = $msgError;
         return $this;
     }
@@ -105,4 +76,26 @@ class Msg {
         return $this;
     }
 
+    
+    public function getMsgSuccess() {
+        $this->msgSuccess = "<div class='alert alert-block fade in  text-center' style='font: bold; background-color: #C1F0BA; color:#FFFFFF;'>"
+                    . "<button type='button' class='close' data-dismiss='alert'>×</button>"
+                    . "<h4 class='alert-heading' style='font-weight: 500; color:#008000;'>$this->msgSuccess</h4></div>";
+        return $this->msgSuccess;
+    }
+
+    public function getMsgWarn() {
+        $this->msgWarn = "<div class='alert alert-block alert-warning fade in  text-center'>"
+                    . "<button type='button' class='close' data-dismiss='alert'>×</button>"
+                    . "<h4 class='alert-heading' style='font-weight: 500; color:#FFFFFF;'>$this->msgWarn</h4></div>";        
+        return $this->msgWarn;
+    }
+
+    public function getMsgError() {
+         $this->msgError = "<div class='alert alert-block alert-danger fade in  text-center'>"
+                    . "<button type='button' class='close' data-dismiss='alert'>×</button>"
+                    . "<h4 class='alert-heading' style='font-weight: 500; color:#FF0000;'>$this->msgError</h4></div>";       
+        return $this->msgError;
+    }    
+    
 }

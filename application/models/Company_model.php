@@ -15,7 +15,8 @@
  * and open the template in the editor.
  */
 use entity\Company as ECompany;
-use entity\Msg     as EMsg;
+use entity\CompanyAddr as ECpnyaddr;
+use entity\Msg as EMsg;
 
 /**
  * Description of Users
@@ -23,21 +24,21 @@ use entity\Msg     as EMsg;
  * @author batista
  */
 class Company_Model extends CI_Model {
+
     private $company_table;
     private $addr_table;
-    private  $status_error;
-    private $cpny;
-    private $msg;
-    
-    
+    public $cpny;
+    public $addr;
+    public $msg;
+
     function __construct() {
         parent::__construct();
         $this->company_table = 'company';
         $this->addr_table = 'companyaddr';
         //
         $this->cpny = new ECompany();
+        $this->addr = new ECpnyaddr();
 
-        $this->status_error = new ArrayObject();
         $this->msg = new EMsg(NULL, NULL, NULL, NULL, NULL, NULL);
     }
 
@@ -179,76 +180,49 @@ class Company_Model extends CI_Model {
     /**
      * Method to add a new Company and. 
      */
-    public function AddCpny($cpny_data) {
+    public function AddCpny($cpny) {
+        $this->cpny = $cpny;
+        $this->addr = $this->cpny->getAddr();
 
-        //To return error message and status for for insert().
-        $this->status_error = new ArrayObject();
-
-        print "<pre>";
-        print_r($cpny_data);
-        print "</pre>";
-        exit();
+        /*
+          print "<pre>";
+          print_r($cpny);
+          print "</pre>";
+          exit();
+         */
 
         //
-        $result_cpny = $this->db->insert($this->company_table, $cpny_data);
+        $result_cpny = $this->db->insert($this->company_table, $this->cpny);
+        $this->msg->setStatus($result_cpny);
 
-        $this->status_error->status = $result_cpny;
-
-        if (!$result_cpny) {
+        if (!$this->msg->getStatus()) {
             $error = $this->db->error(); // Has keys 'code' and 'message'
-            $this->status_error->error = $error;
+            $this->msg->setMsgError($error[0].' - '.$error[1]);
             //
         }
-        //
-        return $this->status_error;
-    }
-
-    /**
-     * Method to add a new Address Company
-     */
-    public function AddAddr($addr_data) {
-
-        //To return error message and status for for insert().
-        $this->status_error = new ArrayObject();
-
+/*
         print "<pre>";
-        print_r($addr_data);
+        print_r($this->msg);
         print "</pre>";
         exit();
+*/
 
-        /*         * *
-         * Add address to company
-         */
-        $result_addr = $this->db->insert($this->addr_table, $addr_data);
-        $this->status_error->status = $result_addr;
-
-        if (!$result_addr) {
-            $error = $this->db->error(); // Has keys 'code' and 'message'
-            $this->status_error->error = $error;
-        }
         //
-        return $this->status_error;
+        return $this->msg;
     }
 
+
+
     /*     * *
-     * Method designed to delete company
+     * Method designed to delete a start company
      * for id informed.
      */
 
-    public function DeleteCpny($id) {
-        $this->db->where('company_id', $id);
+    public function CleanCpny($id) {
+        $this->db->where('id', $id);
         $this->db->delete($this->company_table);
     }
 
-    /*     * *
-     * Method designed to delete Address Company
-     * for id informed.
-     */
-
-    public function DeleteAddr($id) {
-        $this->db->where('company_id', $id);
-        $this->db->delete($this->addr_table);
-    }
 
     /*
      * Metho to update company and your 

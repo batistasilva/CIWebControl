@@ -54,8 +54,8 @@
                                         <td><?php echo $cpny->shortname; ?></td>
                                         <td><?= $cpny->status == '1' ? "Ativo" : "Inativo"; ?></td>
                                         <td><?php echo $date_new_create; ?></td>
-                                        <td><a class="delete" href="<?php echo base_url(); ?>ctrlcpny/cpnyEdit/<?php echo $cpny->company_id; ?>">Alterar</a></td>
-                                        <td><a class="delete" href="<?php echo base_url(); ?>ctrlcpny/cpnyDel/<?php echo $cpny->company_id; ?>">Remover</a></td>
+                                        <td><a class="delete" href="<?php echo base_url(); ?>ctrlcpny/cpnyEdit/<?php echo $cpny->id; ?>">Alterar</a></td>
+                                        <td><a class="delete" href="<?php echo base_url(); ?>ctrlcpny/cpnyDel/<?php echo $cpny->id; ?>">Remover</a></td>
                                     </tr>                           
                                     <?php
                                 }

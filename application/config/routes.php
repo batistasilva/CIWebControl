@@ -53,7 +53,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //$route['404_override'] = '';
 //$route['translate_uri_dashes'] = FALSE;
 
-$route['default_controller'] = 'Main';
+//rota definida para que a definição do idioma seja o primeiro nó da URL
+$route['(:any)'] = 'Welcome/index';
+//para rotas adicionas, você pode utilizar algo como
+//$route['(:any)/minha-rota'] = 'Welcome/meu_metodo';
+$route['default_controller'] = 'welcome';
+
+//$route['default_controller'] = 'Main';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['ctrlcpny'] = 'Ctrlcpny';

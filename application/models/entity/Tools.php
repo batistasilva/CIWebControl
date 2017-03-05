@@ -5,11 +5,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 namespace entity;
 
-
 class Tools {
-
     /*     * *
      * Function to clean special char to 
      * string to come from fields.
@@ -58,7 +57,7 @@ class Tools {
      * and '(' and ')' and '/' or '\' to field number.
      */
 
-    function clean_int_input($data) {
+    function cleanIntegerToDb($data) {
         //
         $data = trim($data);
         $data = stripslashes($data);
@@ -71,6 +70,25 @@ class Tools {
         $data = str_ireplace("\'", '', $data);
         //
         return $data;
+    }
+
+    /**
+     * Clean Input for Phone
+     * and set zero when is null.
+     * @param type $phone
+     * @return string
+     */
+    function cleanInputPhone($phone) {
+        //
+        if (strlen($phone) > 0) {
+            $phone = str_ireplace('-', '', $phone);
+            $phone = str_ireplace('(', '', $phone);
+            $phone = str_ireplace(')', '', $phone);
+        } else {
+            $phone = "0";
+        }
+        //
+        return $phone;
     }
 
     function format_data($str, $type) {

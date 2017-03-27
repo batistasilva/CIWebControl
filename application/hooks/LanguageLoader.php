@@ -26,11 +26,14 @@ class LanguageLoader
       case 'es':
       $idioma = 'spanish';
       break;
+      case 'fr':
+      $idioma = 'french';
+      break;  
       case 'pt_br':
       $idioma = 'portuguese-brazilian';
       break;
       default:
-      $idioma = 'spanish';
+      $idioma = 'english';
       break;
     }
     //carrega todos os arquivos de idioma, dessa forma você poderá utilizar as

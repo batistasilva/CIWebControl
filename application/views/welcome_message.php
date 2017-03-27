@@ -65,7 +65,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<h1><?=$this->lang->line('welcome_title')?></h1>
 
 	<div id="body">
-		<p><a href="<?=base_url()?>">English</a> | <a href="<?=base_url('pt_br')?>">Português</a> | <a href="<?=base_url('es')?>">Español</a></p>
+		<p>
+                    <a href="<?=base_url('en')?>">English</a> | 
+                    <a href="<?=base_url('pt_br')?>">Português</a> | 
+                    <a href="<?=base_url('es')?>">Español</a> |
+                    <a href="<?=base_url('fr')?>">Francês</a></p>
 	</div>
 
 </div>

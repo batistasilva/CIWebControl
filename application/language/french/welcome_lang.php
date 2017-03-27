@@ -6,4 +6,4 @@
  * and open the template in the editor.
  */
 
-$lang['welcome_title'] = 'Bienvenido a CodeIgniter!';
+$lang['welcome_title'] = 'Bienvenue chez Codeigniter!';

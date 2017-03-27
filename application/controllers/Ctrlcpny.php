@@ -2,7 +2,6 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-
 use entity\Company as ECompany;
 use entity\Tools as ETools;
 use entity\CompanyAddr as ECpnyAddr;
@@ -21,6 +20,7 @@ class Ctrlcpny extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        //
         $this->cpny = new ECompany();
         $this->cpny_temp = new ECompany();
         $this->addr = new ECpnyAddr();
@@ -40,14 +40,14 @@ class Ctrlcpny extends CI_Controller {
         $data['cpny_list'] = $this->Company_model->get_list();
         //print_r($data);
         //exit();
-        //Load Temaplate
+        //Load Template
         $this->load->view('header', $data);
         $this->load->view('mngcpny/index', $data);
         $this->load->view('footer', $data);
     }
 
     /**
-     * Prepare data to form edit...
+     * Open form to add new Company...
      */
     public function cpnyAdd() {
         //
@@ -66,7 +66,8 @@ class Ctrlcpny extends CI_Controller {
     }
 
     /**
-     * Save data from form to database.
+     * Save data to Company that come from form,
+     * To entity Company.
      */
     public function cpnyAddSave() {
 
@@ -95,7 +96,7 @@ class Ctrlcpny extends CI_Controller {
 
         $this->cpny = new ECompany();
         $this->cpny_temp = new ECompany();
-        
+
         $this->tools = new ETools();
 
         //
@@ -121,9 +122,9 @@ class Ctrlcpny extends CI_Controller {
         $this->cpny_temp->setNextelid($this->input->post('nextel_id'));
         $this->cpny_temp->setEmail($this->input->post('email'));
         $this->cpny_temp->setStatus($this->input->post('status'));
-        $this->cpny_temp->setNote($this->input->post('message'));        
+        $this->cpny_temp->setNote($this->input->post('message'));
         //
-        $this->addr = new ECpnyAddr();     
+        $this->addr = new ECpnyAddr();
         $this->addr_temp = new ECpnyAddr();
         //
         $this->addr->setZipid($this->input->post('zipid'));
@@ -144,7 +145,7 @@ class Ctrlcpny extends CI_Controller {
         $this->addr_temp->setState($this->input->post('state'));
         $this->addr_temp->setReference($this->input->post('reference'));
         //        
-        
+
         $this->cpny->setAddr($this->addr);
         $this->cpny_temp->setAddr($this->addr_temp);
 
@@ -211,7 +212,7 @@ class Ctrlcpny extends CI_Controller {
                     //
                 }
             }
-                                  
+
             /*    print "<pre>";
               print_r($this->msg);
               print "</pre>";
@@ -225,12 +226,11 @@ class Ctrlcpny extends CI_Controller {
                 $this->Sessionmsg_model->wtFSMsg($this->smsg);
                 //
                 $data['cpny'] = $this->cpny_temp;
-                
+
                 //Load Temaplate
                 $this->load->view('header', $data);
                 $this->load->view('mngcpny/addcpny', $data);
                 $this->load->view('footer', $data);
-
             } else {
                 $this->cpny = new ECompany();
                 $this->addr = new ECpnyAddr();
@@ -250,10 +250,9 @@ class Ctrlcpny extends CI_Controller {
         }
     }
 
-    /*     * *
+    /**
      * Prepare data to form edit.
      */
-
     public function cpnyEdit($vcpny_id) {
         $tools = new ETools();
         $this->cpny = new ECompany();
@@ -418,12 +417,15 @@ class Ctrlcpny extends CI_Controller {
 
     /**
      * Delete company selected from table, in case 
-     * where it's not has customer.
+     * where it has not customer.
      * @param type $cpny_id
      */
     public function cpnyDel($cpny_id) {
         //
-        $msg = $this->model->deleteCpny($cpny_id);
+        /**
+         * Here!, Call the first method to add company.
+         */
+        $this->msg = $this->Company_model->deleteCpny($cpny_id);
         $this->smsg = new ESMsg();
         //
         if ($msg->getStatusError() == '1') {

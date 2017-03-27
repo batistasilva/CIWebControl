@@ -33,6 +33,7 @@ class Company_Model extends CI_Model {
 
     function __construct() {
         parent::__construct();
+        $this->load->library('mydb');
         $this->company_table = 'company';
         $this->addr_table = 'companyaddr';
         //
@@ -197,21 +198,19 @@ class Company_Model extends CI_Model {
 
         if (!$this->msg->getStatus()) {
             $error = $this->db->error(); // Has keys 'code' and 'message'
-            $this->msg->setMsgError($error[0].' - '.$error[1]);
+            $this->msg->setMsgError($error[0] . ' - ' . $error[1]);
             //
         }
-/*
-        print "<pre>";
-        print_r($this->msg);
-        print "</pre>";
-        exit();
-*/
+        /*
+          print "<pre>";
+          print_r($this->msg);
+          print "</pre>";
+          exit();
+         */
 
         //
         return $this->msg;
     }
-
-
 
     /*     * *
      * Method designed to delete a start company
@@ -222,7 +221,6 @@ class Company_Model extends CI_Model {
         $this->db->where('id', $id);
         $this->db->delete($this->company_table);
     }
-
 
     /*
      * Metho to update company and your 
@@ -299,10 +297,23 @@ class Company_Model extends CI_Model {
      * @return \Msg
      */
     public function deleteCpny($cpny_id) {
-        // $msg = new Msg("", "", false);
-        //$cpny_id = 20;
+
         //
-        $status = $this->db->selectObj('SELECT status FROM customer WHERE company_id = :company_id', array(':company_id' => $cpny_id), "Customer");
+        //$query = $this->db->query("CALL delete_company(219,@res);SELECT @res as out_param");
+        //$this->db->call_function('CALL delete_company(219,@res);SELECT @res as out_param');
+        //$this->db->simple_query("CALL delete_company(219,@res);"); // not need to get output
+        //$query = $this->db->call_function('SELECT @res as out_param;');
+        //$query = $this->db->simple_query("SELECT @res as out_param;");
+
+       // $query = $this->db->query('SELECT @res as out_param;');
+        $arr  = $this->mydb->GetMultiResults("CALL delete_company(219,@res);SELECT @res AS res");
+
+
+        echo '--> '. $arr['0'][0]['message'];
+        print "<pre>";
+        print_r($arr);
+        print "</pre>";
+        exit();
 
         if (!$status) {
             //Remove Company

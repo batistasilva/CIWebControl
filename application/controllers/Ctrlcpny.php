@@ -225,8 +225,7 @@ class Ctrlcpny extends CI_Controller {
                 //Sessionmsg_model
                 $this->Sessionmsg_model->wtFSMsg($this->smsg);
                 //
-                $data['cpny'] = $this->cpny_temp;
-
+                $data['cpny'] = $this->cpny_temp; //for recovery last data putted
                 //Load Temaplate
                 $this->load->view('header', $data);
                 $this->load->view('mngcpny/addcpny', $data);
@@ -428,22 +427,31 @@ class Ctrlcpny extends CI_Controller {
         $this->msg = $this->Company_model->deleteCpny($cpny_id);
         $this->smsg = new ESMsg();
         //
-        if ($msg->getStatusError() == '1') {
-            //
-            $this->smsg->setMsg("deleteCpny(): " . $msg->getMsg());
-            //
+        if ($this->msg->getStatus() !== TRUE) {
+            //  
+
+            $this->smsg->setMsg($this->msg->getMsgError());
+            //Sessionmsg_model
             $this->Sessionmsg_model->wtFSMsg($this->smsg);
             //
-            header('location: ' . URL . 'mngcpny/index');
-            exit();
+            $data['cpny_list'] = $this->Company_model->get_list();
+            //Load Temaplate
+            $this->load->view('header', $data);
+            $this->load->view('mngcpny/index', $data);
+            $this->load->view('footer', $data);
         } else {
+            $this->cpny = new ECompany();
+            $this->addr = new ECpnyAddr();
+            $this->cpny->setAddr($this->addr);
             //
-            $this->smsg->setMsg("Empresa Excluida com Sucesso!");
+            $this->smsg->setMsg($this->msg->getMsgSuccess());
             //
             $this->Sessionmsg_model->wtFSMsg($this->smsg);
-            //            
-            header('location: ' . URL . 'mngcpny/index');
-            exit();
+            $data['cpny_list'] = $this->Company_model->get_list();
+            //
+            $this->load->view('header', $data);
+            $this->load->view('mngcpny/index', $data);
+            $this->load->view('footer', $data);
         }
     }
 

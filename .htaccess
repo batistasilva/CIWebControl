@@ -1,9 +1,9 @@
 # Habilitar o PHP 5.3
 AddType application/x-httpd-php53 .php
 
-RewriteEngine On
+<IfModule mod_rewrite.c>
+RewriteEngine On 
 RewriteBase /
-
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f

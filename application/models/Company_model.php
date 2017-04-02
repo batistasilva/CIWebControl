@@ -183,7 +183,6 @@ class Company_Model extends CI_Model {
      */
     public function AddCpny($cpny) {
         $this->cpny = $cpny;
-        $this->addr = $this->cpny->getAddr();
 
         /*
           print "<pre>";
@@ -297,46 +296,26 @@ class Company_Model extends CI_Model {
      * @return \Msg
      */
     public function deleteCpny($cpny_id) {
-
         //
-        //$query = $this->db->query("CALL delete_company(219,@res);SELECT @res as out_param");
-        //$this->db->call_function('CALL delete_company(219,@res);SELECT @res as out_param');
-        //$this->db->simple_query("CALL delete_company(219,@res);"); // not need to get output
-        //$query = $this->db->call_function('SELECT @res as out_param;');
-        //$query = $this->db->simple_query("SELECT @res as out_param;");
+        $arr  = $this->mydb->GetMultiResults("CALL delete_company($cpny_id,@res);SELECT @res AS res");
 
-       // $query = $this->db->query('SELECT @res as out_param;');
-        $arr  = $this->mydb->GetMultiResults("CALL delete_company(219,@res);SELECT @res AS res");
-
-
-        echo '--> '. $arr['0'][0]['message'];
-        print "<pre>";
+        $status = $arr[1][0]['res'];
+        /*print "<pre>";
         print_r($arr);
         print "</pre>";
-        exit();
+        exit();*/
 
         if (!$status) {
-            //Remove Company
-            $resultcomp = $this->db->delete('company', "company_id = '$cpny_id'");
-            //Remove Address Company
-            $resultaddr = $this->db->delete('companyaddr', "company_id = '$cpny_id'");
             //    
-            if (($resultcomp === 1) && ($resultaddr === 1)) {
-                $this->msg->setType('Okay');
-                $this->msg->setStatusError(FALSE);
-                $this->msg->setMsg("Empresa Excluida com Sucesso!");
-            } else {
-                $this->msg->setType('Error');
-                $this->msg->setStatusError(TRUE);
-                $this->msg->setMsg("Empresa não pode ser removida!, Cliente não Encontrado!");
-            }
+            $this->msg->setStatus(TRUE);
+            $this->msg->setMsgSuccess("Empresa Excluída com Sucesso!");
             //
             return $this->msg;
         } else {
-            $this->msg->setType('Error');
-            $this->msg->setStatusError(TRUE);
-            $this->msg->setMsg("Empresa não pode ser removida!, há Clientes Ativos!");
-            //
+            $error = $this->db->error(); // Has keys 'code' and 'message'
+            $this->msg->setMsgError(' deleteCpny(): '.' - '.$error['code'].' - '.$error['message']);
+            $this->msg->setStatus(FALSE);
+             //
             return $this->msg;
         }
     }
